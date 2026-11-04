@@ -263,7 +263,7 @@ footer { border-top: 2px solid var(--ink); padding-top: 16px; font-size: var(--s
 .mapwrap { display: grid; gap: 8px; }
 .mapbox { height: min(72vh, 680px); min-height: 360px; width: 100%; border: 1px solid var(--rule); border-radius: 6px; background: #4a70aa; }
 .mapbox.short { height: min(60vh, 520px); }
-.mapbox .town-layer { image-rendering: pixelated; }
+.mapbox .leaflet-image-layer { image-rendering: crisp-edges; image-rendering: pixelated; }
 .dm { display: flex; align-items: center; justify-content: center; border-radius: 50%; color: #fff; font: 700 13px var(--font-data); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5); }
 .dm.t-s { background: #2e9f43; } .dm.t-m { background: #2a6edc; } .dm.t-l { background: #c8302d; }
 .dm.spawn { background: #d6a028; border-radius: 4px; }
@@ -703,8 +703,8 @@ footer { border-top: 2px solid var(--ink); padding-top: 16px; font-size: var(--s
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script>
 (() => {
-  const BASE = "maps/base.jpg", TOWN = "maps/town-base.jpg";
-  const BASE_B = [[-7400, 2450], [-5200, 4608]];   // lat = -Z, lng = X
+  const BASE = "maps/full-q.png";
+  const BASE_B = [[-7400, 2450], [-5200, 4608]];   // image covers X 2450..4607, Z 5200..7399   // lat = -Z, lng = X
   const TOWN_B = [[-6621, 3260], [-6316, 3721]];
   const SPAWN = [3488, 6460];
   const D = [
@@ -748,10 +748,9 @@ footer { border-top: 2px solid var(--ink); padding-top: 16px; font-size: var(--s
     const el = document.getElementById(id);
     if (!el) return null;
     if (!window.L) { fallback(el); return null; }
-    const map = L.map(el, { crs: L.CRS.Simple, minZoom: -3, maxZoom: 3, zoomSnap: 0.25, zoomDelta: 0.5, wheelPxPerZoomLevel: 80,
+    const map = L.map(el, { crs: L.CRS.Simple, minZoom: -3, maxZoom: 4, zoomSnap: 0.25, zoomDelta: 0.5, wheelPxPerZoomLevel: 80,
       maxBounds: L.latLngBounds(BASE_B).pad(0.15), maxBoundsViscosity: 0.9, attributionControl: false });
-    L.imageOverlay(BASE, BASE_B).addTo(map);
-    L.imageOverlay(TOWN, TOWN_B, { className: "town-layer" }).addTo(map);
+    L.imageOverlay(BASE, BASE_B, { className: "block-map" }).addTo(map);
     const tl = L.layerGroup().addTo(map);
     TOWN_L.forEach(t => L.marker(ll(t[1], t[2]), { icon: L.divIcon({ className: "", html: '<div class="tl">' + t[0] + '</div>', iconSize: [0, 0] }), interactive: false, keyboard: false }).addTo(tl));
     L.marker(ll(SPAWN[0], SPAWN[1]), { icon: L.divIcon({ className: "", html: '<div class="dm spawn" style="width:22px;height:22px">★</div>', iconSize: [22, 22], iconAnchor: [11, 11] }), title: "新手城出生點" })
