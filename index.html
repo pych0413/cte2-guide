@@ -196,7 +196,6 @@ td .en { display: block; font-size: var(--step--1); color: var(--muted); font-fa
 
 .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: var(--step--1); color: var(--muted); }
 .dot { display: inline-block; width: 0.8em; height: 0.8em; border-radius: 50%; vertical-align: -0.05em; margin-right: 4px; }
-.dlist { display: grid; gap: 22px; }
 .dgroup { display: grid; gap: 4px; }
 .dgroup h3 { display: flex; align-items: baseline; gap: 10px; }
 .dg-item { display: grid; grid-template-columns: 1.9rem 1fr auto; gap: 2px 10px; align-items: baseline; padding: 6px 0; border-bottom: 1px solid var(--rule); }
@@ -215,23 +214,70 @@ td .en { display: block; font-size: var(--step--1); color: var(--muted); font-fa
 footer { border-top: 2px solid var(--ink); padding-top: 16px; font-size: var(--step--1); color: var(--muted); display: grid; gap: 6px; }
 
 
-/* map zoom */
-.zoomable { position: relative; display: block; width: 100%; padding: 0; border: 1px solid var(--rule); border-radius: 4px; background: none; cursor: zoom-in; overflow: hidden; }
-.zoomable img { display: block; width: 100%; height: auto; border: 0; }
-.zoomhint { position: absolute; right: 8px; bottom: 8px; font-size: 0.78rem; font-family: var(--font-body); color: #fff; background: rgba(20, 24, 28, 0.78); padding: 2px 10px; border-radius: 999px; }
-.zoomable:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-dialog.viewer { padding: 0; border: 0; margin: 0; width: 100vw; height: 100vh; height: 100dvh; max-width: none; max-height: none; background: #0d0f12; color: #fff; }
-dialog.viewer::backdrop { background: rgba(0, 0, 0, 0.85); }
-.vstage { position: absolute; inset: 0; overflow: hidden; touch-action: none; cursor: grab; }
-.vstage.drag { cursor: grabbing; }
-.vstage img { position: absolute; left: 0; top: 0; transform-origin: 0 0; max-width: none; user-select: none; -webkit-user-drag: none; }
-.vbar { position: absolute; left: 0; right: 0; top: 0; display: flex; align-items: center; gap: 8px; z-index: 2;
-  padding: calc(env(safe-area-inset-top, 0px) + 10px) max(12px, env(safe-area-inset-right, 0px)) 10px max(12px, env(safe-area-inset-left, 0px));
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)); }
-.vbar .vtitle { font-family: var(--font-display); font-size: 1.1rem; margin-right: auto; }
-.vbar button { font: 600 1rem var(--font-data); color: #fff; background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 6px; min-width: 2.6rem; height: 2.4rem; cursor: pointer; }
-.vbar button:focus-visible { outline: 2px solid #e2aa45; }
-.vhelp { position: absolute; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); transform: translateX(-50%); margin: 0; font-size: 0.8rem; color: rgba(255, 255, 255, 0.85); background: rgba(0, 0, 0, 0.55); padding: 3px 12px; border-radius: 999px; white-space: nowrap; }
+/* Leaflet 1.9 core (subset, inlined because the page may not load external stylesheets) */
+.leaflet-pane, .leaflet-tile, .leaflet-marker-icon, .leaflet-marker-shadow, .leaflet-tile-container, .leaflet-pane > svg, .leaflet-pane > canvas, .leaflet-zoom-box, .leaflet-image-layer, .leaflet-layer { position: absolute; left: 0; top: 0; }
+.leaflet-container { overflow: hidden; -webkit-tap-highlight-color: transparent; font-family: var(--font-body); font-size: 0.85rem; }
+.leaflet-container img.leaflet-image-layer { max-width: none !important; max-height: none !important; }
+.leaflet-container.leaflet-touch-zoom { touch-action: pan-x pan-y; }
+.leaflet-container.leaflet-touch-drag { touch-action: pinch-zoom; }
+.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom { touch-action: none; }
+.leaflet-marker-icon, .leaflet-marker-shadow, .leaflet-image-layer, .leaflet-pane > svg path, .leaflet-tile-container { pointer-events: none; }
+.leaflet-marker-icon.leaflet-interactive, .leaflet-image-layer.leaflet-interactive, .leaflet-pane > svg path.leaflet-interactive { pointer-events: auto; }
+.leaflet-pane { z-index: 400; }
+.leaflet-tile-pane { z-index: 200; }
+.leaflet-overlay-pane { z-index: 400; }
+.leaflet-shadow-pane { z-index: 500; }
+.leaflet-marker-pane { z-index: 600; }
+.leaflet-tooltip-pane { z-index: 650; }
+.leaflet-popup-pane { z-index: 700; }
+.leaflet-control { position: relative; z-index: 800; pointer-events: auto; float: left; clear: both; }
+.leaflet-top, .leaflet-bottom { position: absolute; z-index: 1000; pointer-events: none; }
+.leaflet-top { top: 0; } .leaflet-right { right: 0; } .leaflet-bottom { bottom: 0; } .leaflet-left { left: 0; }
+.leaflet-right .leaflet-control { float: right; }
+.leaflet-top .leaflet-control { margin-top: 10px; } .leaflet-bottom .leaflet-control { margin-bottom: 10px; }
+.leaflet-left .leaflet-control { margin-left: 10px; } .leaflet-right .leaflet-control { margin-right: 10px; }
+.leaflet-zoom-animated { transform-origin: 0 0; }
+.leaflet-zoom-anim .leaflet-zoom-animated { transition: transform 0.25s cubic-bezier(0, 0, 0.25, 1); }
+.leaflet-zoom-anim .leaflet-zoom-hide { visibility: hidden; }
+.leaflet-fade-anim .leaflet-popup { opacity: 0; transition: opacity 0.2s linear; }
+.leaflet-fade-anim .leaflet-map-pane .leaflet-popup { opacity: 1; }
+.leaflet-interactive { cursor: pointer; }
+.leaflet-grab { cursor: grab; }
+.leaflet-dragging .leaflet-grab, .leaflet-dragging .leaflet-marker-draggable { cursor: grabbing; }
+.leaflet-bar { box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5); border-radius: 4px; }
+.leaflet-bar a { background: #fff; border-bottom: 1px solid #ccc; width: 34px; height: 34px; line-height: 32px; display: block; text-align: center; text-decoration: none; color: #222; font: 700 18px var(--font-data); }
+.leaflet-bar a:first-child { border-top-left-radius: 4px; border-top-right-radius: 4px; }
+.leaflet-bar a:last-child { border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border-bottom: none; }
+.leaflet-bar a.leaflet-disabled { cursor: default; background: #f4f4f4; color: #bbb; }
+.leaflet-popup { position: absolute; text-align: center; margin-bottom: 20px; }
+.leaflet-popup-content-wrapper { padding: 1px; text-align: left; border-radius: 8px; background: var(--surface); color: var(--ink); box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4); }
+.leaflet-popup-content { margin: 12px 26px 12px 14px; line-height: 1.5; min-height: 1px; }
+.leaflet-popup-tip-container { width: 40px; height: 20px; position: absolute; left: 50%; margin-top: -1px; margin-left: -20px; overflow: hidden; pointer-events: none; }
+.leaflet-popup-tip { width: 17px; height: 17px; padding: 1px; margin: -10px auto 0; pointer-events: auto; transform: rotate(45deg); background: var(--surface); box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4); }
+.leaflet-container a.leaflet-popup-close-button { position: absolute; top: 2px; right: 2px; width: 24px; height: 24px; font: 18px/24px var(--font-data); color: var(--muted); text-decoration: none; text-align: center; }
+.leaflet-tooltip { position: absolute; padding: 2px 7px; background: rgba(20, 22, 26, 0.82); border-radius: 3px; color: #fff; white-space: nowrap; user-select: none; pointer-events: none; font-weight: 700; }
+.leaflet-tooltip-left { margin-left: -6px; } .leaflet-tooltip-right { margin-left: 6px; }
+.leaflet-tooltip-top { margin-top: -6px; } .leaflet-tooltip-bottom { margin-top: 6px; }
+.leaflet-div-icon { background: none; border: 0; }
+/* our maps */
+.mapwrap { display: grid; gap: 8px; }
+.mapbox { height: min(72vh, 680px); min-height: 360px; width: 100%; border: 1px solid var(--rule); border-radius: 6px; background: #4a70aa; }
+.mapbox.short { height: min(60vh, 520px); }
+.mapbox .town-layer { image-rendering: pixelated; }
+.dm { display: flex; align-items: center; justify-content: center; border-radius: 50%; color: #fff; font: 700 13px var(--font-data); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5); }
+.dm.t-s { background: #2e9f43; } .dm.t-m { background: #2a6edc; } .dm.t-l { background: #c8302d; }
+.dm.spawn { background: #d6a028; border-radius: 4px; }
+.dm.old { background: #e8e8e8; color: #333; }
+.dm-label { display: none; }
+.show-labels .dm-label { display: block; }
+.tl { color: #fff; font: 700 13px var(--font-body); white-space: nowrap; text-shadow: 0 0 3px #000, 0 0 3px #000, 0 0 2px #000; transform: translate(-50%, -50%); display: none; }
+.show-town .tl { display: block; }
+.coordbox { background: rgba(20, 22, 26, 0.82); color: #fff; font: 600 12px var(--font-data); padding: 4px 9px; border-radius: 4px; }
+.mapnote { font-size: var(--step--1); color: var(--muted); }
+.dlist { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); }
+.dg-item { cursor: pointer; }
+.dg-item:hover .nm, .dg-item:focus-visible .nm { color: var(--accent); }
+.dg-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 /* talent search keywords */
 .kw { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: 6px; }
 .kw button { display: grid; text-align: left; padding: 6px 10px; border: 1px solid var(--rule); border-radius: 4px; background: var(--surface); color: var(--ink); cursor: copy; font: inherit; }
@@ -497,10 +543,10 @@ dialog.viewer::backdrop { background: rgba(0, 0, 0, 0.85); }
 
 <section id="town">
   <header><p class="label">08 · 新手城</p><h2>新手城同點樣返城</h2></header>
-  <figure style="margin:0;display:grid;gap:8px">
-    <button type="button" class="zoomable" data-full="maps/town-hi.jpg" data-title="新手城地圖" aria-label="放大新手城地圖"><img src="maps/town-lo.jpg" alt="新手城俯視地圖，標咗每座建築" width="922" height="610"><span class="zoomhint">撳一下放大</span></button>
-    <figcaption class="legend"><span>新手城俯視圖 · 格線每 32 格 · 上面係北 · 出生點 X 3488 Z 6460</span></figcaption>
-  </figure>
+  <div class="mapwrap">
+    <div class="mapbox short" id="townmap" role="region" aria-label="新手城互動地圖"></div>
+    <p class="mapnote">滑鼠滾輪放大縮細，拖動移動（手機用兩隻手指）。放大少少就會見到每座建築嘅名，右下角係滑鼠位置嘅遊戲座標。</p>
+  </div>
   <div class="twocol">
     <div class="col" style="display:grid;gap:10px">
       <h3>城入面有咩</h3>
@@ -531,17 +577,12 @@ dialog.viewer::backdrop { background: rgba(0, 0, 0, 0.85); }
 
 <section id="dungeons">
   <header><p class="label">09 · 副本</p><h2>新手城附近嘅副本</h2></header>
-  <p class="lead col">廣場南邊有塊<strong>副本告示板</strong>，寫晒座標。下面地圖嘅號碼同列表一樣。座標用 <kbd>F3</kbd> 睇，或者撳 <kbd>M</kbd> 開地圖。</p>
-  <div class="mapgrid">
-    <figure>
-      <button type="button" class="zoomable" data-full="maps/dungeons-hi.jpg" data-title="副本地圖" aria-label="放大副本地圖"><img src="maps/dungeons-lo.jpg" alt="新手城附近地圖，標咗 23 個副本位置" width="1100" height="1100"><span class="zoomhint">撳一下放大</span></button>
-      <figcaption class="legend">
-        <span><span class="dot" style="background:var(--accent)"></span>新手城</span>
-        <span><span class="dot b-s"></span>小型</span><span><span class="dot b-m"></span>中型</span><span><span class="dot b-l"></span>大型</span>
-        <span>格線每 500 格 · 上面係北</span>
-      </figcaption>
-    </figure>
-    <div class="dlist">
+  <p class="lead col">廣場南邊有塊<strong>副本告示板</strong>，寫晒座標。地圖上嘅號碼同列表一樣。座標用 <kbd>F3</kbd> 睇，或者撳 <kbd>M</kbd> 開地圖。</p>
+  <div class="mapwrap">
+    <div class="mapbox" id="dmap" role="region" aria-label="副本互動地圖"></div>
+    <p class="mapnote">滾輪縮放、拖動移動。撳地圖上嘅圓點，或者撳下面列表任何一個副本，就會飛去嗰度同顯示資料。綠色＝小型、藍色＝中型、紅色＝大型，★＝新手城出生點。</p>
+  </div>
+  <div class="dlist">
       <div class="dgroup">
         <h3><span class="t-s">小型</span> <span class="small muted">快打，10–20 分鐘</span></h3>
         <div class="dg-item"><span class="badge b-s">1</span><span class="nm">不死者之塔 <small>Dungeons Enhanced</small></span><span class="xz">X 3510 Z 6583</span><span class="ds">南面約 124 格 · 細塔，殭屍骷髏。太近出生點，唔會重生。</span></div>
@@ -575,7 +616,6 @@ dialog.viewer::backdrop { background: rgba(0, 0, 0, 0.85); }
         <div class="dg-item"><span class="badge b-l">23</span><span class="nm">巫妖塔 <span class="muted">*</span> <small>Bosses of Mass Destruction</small></span><span class="xz">約 X 2704 Z 6384</span><span class="ds">西面約 787 格 · 暗夜巫妖，Boss 最少 90 級，後期先去。</span></div>
       </div>
     </div>
-  </div>
   <ul class="tight col">
     <li><strong>天然副本會重生</strong>：冇人入去 96 個鐘就會重置，可以再打。但如果離任何人嘅床或重生點 200 格內，就唔會重生；喺入面改太多方塊亦會停止重生。</li>
     <li>標 <strong>*</strong> 嘅係我後加落去嘅副本，打完<strong>唔會</strong>重生。</li>
@@ -660,93 +700,123 @@ dialog.viewer::backdrop { background: rgba(0, 0, 0, 0.85); }
 
 </div>
 
-<dialog class="viewer" id="viewer" aria-label="地圖">
-  <div class="vstage" id="vstage"><img id="vimg" alt=""></div>
-  <div class="vbar"><span class="vtitle" id="vtitle">地圖</span>
-    <button type="button" id="vminus" aria-label="縮細">－</button><button type="button" id="vplus" aria-label="放大">＋</button>
-    <button type="button" id="vfit" aria-label="睇晒成張">⤢</button><button type="button" id="vclose" aria-label="關閉">✕</button></div>
-  <p class="vhelp">滾輪或兩指縮放 · 拖動移動 · 雙擊放大</p>
-</dialog>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script>
 (() => {
-  const dlg = document.getElementById('viewer'), stage = document.getElementById('vstage'), img = document.getElementById('vimg');
-  let s = 1, x = 0, y = 0, minS = 0.1;
-  const pts = new Map();
-  let last = null, pinch = null;
-  const apply = () => { img.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(' + s + ')'; };
-  const clamp = () => {
-    const w = img.naturalWidth * s, h = img.naturalHeight * s, W = stage.clientWidth, H = stage.clientHeight;
-    x = w <= W ? (W - w) / 2 : Math.min(0, Math.max(W - w, x));
-    y = h <= H ? (H - h) / 2 : Math.min(0, Math.max(H - h, y));
-  };
-  const fit = () => {
-    if (!img.naturalWidth) return;
-    minS = Math.min(stage.clientWidth / img.naturalWidth, stage.clientHeight / img.naturalHeight);
-    s = minS; x = 0; y = 0; clamp(); apply();
-  };
-  const zoomAt = (f, cx, cy) => {
-    const ns = Math.min(4, Math.max(minS, s * f));
-    x = cx - (cx - x) * (ns / s); y = cy - (cy - y) * (ns / s); s = ns; clamp(); apply();
-  };
-  const open = (btn) => {
-    document.getElementById('vtitle').textContent = btn.dataset.title || '地圖';
-    img.onload = fit;
-    img.alt = btn.querySelector('img').alt;
-    img.src = btn.dataset.full;
-    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
-    if (img.complete) fit();
-  };
-  document.querySelectorAll('.zoomable').forEach(b => b.addEventListener('click', () => open(b)));
-  document.getElementById('vclose').addEventListener('click', () => { if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); });
-  document.getElementById('vfit').addEventListener('click', fit);
-  const mid = () => [stage.clientWidth / 2, stage.clientHeight / 2];
-  document.getElementById('vplus').addEventListener('click', () => { const m = mid(); zoomAt(1.5, m[0], m[1]); });
-  document.getElementById('vminus').addEventListener('click', () => { const m = mid(); zoomAt(1 / 1.5, m[0], m[1]); });
-  window.addEventListener('resize', () => { if (dlg.open) { clamp(); apply(); } });
-  stage.addEventListener('wheel', e => {
-    e.preventDefault();
-    const r = stage.getBoundingClientRect();
-    zoomAt(e.deltaY < 0 ? 1.2 : 1 / 1.2, e.clientX - r.left, e.clientY - r.top);
-  }, { passive: false });
-  stage.addEventListener('dblclick', e => { const r = stage.getBoundingClientRect(); zoomAt(2, e.clientX - r.left, e.clientY - r.top); });
-  stage.addEventListener('pointerdown', e => {
-    stage.setPointerCapture(e.pointerId);
-    pts.set(e.pointerId, [e.clientX, e.clientY]);
-    stage.classList.add('drag'); last = [e.clientX, e.clientY]; pinch = null;
+  const BASE = "maps/base.jpg", TOWN = "maps/town-base.jpg";
+  const BASE_B = [[-7400, 2450], [-5200, 4608]];   // lat = -Z, lng = X
+  const TOWN_B = [[-6621, 3260], [-6316, 3721]];
+  const SPAWN = [3488, 6460];
+  const D = [
+    ["s", "不死者之塔", "Dungeons Enhanced", 3510, 6583, "細塔，殭屍骷髏。喺保護區入面，唔會再刷怪。", 0],
+    ["s", "冰坑", "Dungeons Enhanced", 3428, 6676, "雪地入面嘅地底坑。", 0],
+    ["s", "冰霜術士小屋", "Friends & Foes", 3352, 6820, "冰霜術士（Iceologer）住喺度。", 0],
+    ["s", "幻術師小屋", "Friends & Foes", 3586, 6808, "幻術師（Illusioner）會分身。", 0],
+    ["s", "守望塔", "Dungeons Enhanced", 3924, 6484, "高塔，塔頂有寶箱。", 0],
+    ["s", "巫師小屋", "Illager Invasion", 3204, 6932, "Illager 巫師（Sorcerer）。", 0],
+    ["m", "廢棄神殿", "When Dungeons Arise", 3344, 6784, "好大嘅多層神殿。", 0],
+    ["m", "狗頭人巢穴", "Kobolds", 3481, 6969, "地底巢穴。", 0],
+    ["m", "燈塔", "When Dungeons Arise", 2992, 6256, "海邊燈塔。", 0],
+    ["m", "大型地牢", "Dungeons Enhanced", 3896, 6258, "多層地牢。", 0],
+    ["m", "浴場", "When Dungeons Arise", 2913, 6657, "山上浴場。", 0],
+    ["m", "修道院", "When Dungeons Arise", 4078, 6401, "山頂修道院。", 0],
+    ["m", "掠奪者前哨", "原版", 3288, 5847, "Act I 要殺掠奪者同衛道士。", 0],
+    ["l", "鬥獸場", "When Dungeons Arise", 4048, 6224, "一波接一波嘅怪。", 1],
+    ["l", "被感染神殿", "When Dungeons Arise", 3295, 7217, "起喺山頂，好高。", 0],
+    ["l", "機械巢", "When Dungeons Arise", 4079, 5701, "空中機械要塞，要爬上去。", 0],
+    ["l", "古堡", "Dungeons Enhanced", 2592, 7056, "大城堡。", 1],
+    ["l", "Illager 要塞", "When Dungeons Arise", 3296, 5440, "大型掠奪者要塞。", 1],
+    ["l", "天空征服者", "When Dungeons Arise", 3760, 5280, "海上面大約 Y 200，要自己起路上去。", 1],
+    ["l", "Illager 迷宮", "Illager Invasion", 4136, 5462, "巨型迷宮，大約 160×160。", 0],
+    ["l", "強化要塞", "YUNG's Better Strongholds", 3261, 6848, "地底，入面有終界門。", 0],
+    ["l", "霜冻巨兽", "Mowzie's Mobs", 2880, 5520, "雪山頂。Boss 最少 50 級。", 1],
+    ["l", "巫妖塔", "Bosses of Mass Destruction", 2704, 6384, "暗夜巫妖，Boss 最少 90 級，後期先去。", 1]
+  ];
+  const TOWN_L = [["新手廣場・出生點", 3488, 6474], ["西區村", 3345, 6470], ["旅館", 3436, 6416], ["酒館", 3468, 6419], ["市集屋", 3494, 6417], ["教堂", 3520, 6418],
+    ["城門", 3486, 6356], ["法師塔", 3546, 6391], ["鐵匠鋪", 3572, 6392], ["馬房", 3595, 6392], ["圍牆城", 3615, 6455], ["城堡", 3461, 6558],
+    ["石磚鐵匠鋪", 3560, 6532], ["小石堡", 3599, 6525], ["井・市集攤", 3446, 6441], ["傳送門 ×4", 3488, 6447], ["深淵門", 3513, 6461], ["副本告示板", 3488, 6494]];
+  const DIRS = ["北", "東北", "東", "東南", "南", "西南", "西", "西北"];
+  const dir = (x, z) => DIRS[Math.floor((((Math.atan2(x - SPAWN[0], -(z - SPAWN[1])) * 180 / Math.PI + 360) % 360) + 22.5) / 45) % 8];
+  const ll = (x, z) => [-z, x];
+  const maps = {};
+
+  function fallback(el) {
+    el.innerHTML = '<img src="' + BASE + '" alt="副本地圖（互動地圖載入唔到）" style="width:100%;height:100%;object-fit:contain">';
+  }
+
+  function makeMap(id, view) {
+    const el = document.getElementById(id);
+    if (!el) return null;
+    if (!window.L) { fallback(el); return null; }
+    const map = L.map(el, { crs: L.CRS.Simple, minZoom: -3, maxZoom: 3, zoomSnap: 0.25, zoomDelta: 0.5, wheelPxPerZoomLevel: 80,
+      maxBounds: L.latLngBounds(BASE_B).pad(0.15), maxBoundsViscosity: 0.9, attributionControl: false });
+    L.imageOverlay(BASE, BASE_B).addTo(map);
+    L.imageOverlay(TOWN, TOWN_B, { className: "town-layer" }).addTo(map);
+    const tl = L.layerGroup().addTo(map);
+    TOWN_L.forEach(t => L.marker(ll(t[1], t[2]), { icon: L.divIcon({ className: "", html: '<div class="tl">' + t[0] + '</div>', iconSize: [0, 0] }), interactive: false, keyboard: false }).addTo(tl));
+    L.marker(ll(SPAWN[0], SPAWN[1]), { icon: L.divIcon({ className: "", html: '<div class="dm spawn" style="width:22px;height:22px">★</div>', iconSize: [22, 22], iconAnchor: [11, 11] }), title: "新手城出生點" })
+      .bindPopup("<b>新手城・出生點</b><br>X 3488　Y 78　Z 6460").addTo(map);
+    L.marker(ll(3424, 6208), { icon: L.divIcon({ className: "", html: '<div class="dm old" style="width:20px;height:20px">▲</div>', iconSize: [20, 20], iconAnchor: [10, 10] }), title: "舊出生村" })
+      .bindPopup("<b>舊出生村</b><br>X 3424　Z 6208<br>正下面大約 Y −50 有遠古城市（Warden、深淵門）").addTo(map);
+    const markers = D.map((d, i) => {
+      const n = i + 1, dist = Math.round(Math.hypot(d[3] - SPAWN[0], d[4] - SPAWN[1]));
+      const tierName = { s: "小型", m: "中型", l: "大型" }[d[0]];
+      const m = L.marker(ll(d[3], d[4]), { icon: L.divIcon({ className: "", html: '<div class="dm t-' + d[0] + '" style="width:26px;height:26px">' + n + '</div>', iconSize: [26, 26], iconAnchor: [13, 13] }), title: d[1] });
+      m.bindTooltip(d[1], { direction: "right", offset: [14, 0], permanent: true, className: "dm-label" });
+      m.bindPopup('<b>' + n + '. ' + d[1] + '</b>（' + tierName + '）<br><span class="data">X ' + d[3] + '　Z ' + d[4] + '</span><br>' + dir(d[3], d[4]) + '面約 ' + dist + ' 格<br>' + d[5] +
+        '<br><span style="color:var(--muted)">' + d[2] + (d[6] ? ' · 打完唔會重生' : ' · 96 小時冇人去會重生') + '</span>');
+      return m.addTo(map);
+    });
+    const coord = L.control({ position: "bottomright" });
+    coord.onAdd = () => { const div = L.DomUtil.create("div", "coordbox"); div.textContent = "X —　Z —"; return div; };
+    coord.addTo(map);
+    const box = coord.getContainer();
+    const show = p => { box.textContent = "X " + Math.floor(p.lng) + "　Z " + Math.floor(-p.lat); };
+    map.on("mousemove", e => show(e.latlng));
+    map.on("move", () => { if (!map._hovering) show(map.getCenter()); });
+    el.addEventListener("mouseenter", () => { map._hovering = true; });
+    el.addEventListener("mouseleave", () => { map._hovering = false; });
+    const labels = () => {
+      const z = map.getZoom();
+      el.classList.toggle("show-labels", z >= -1);
+      el.classList.toggle("show-town", z >= 0.25);
+    };
+    map.on("zoomend", labels);
+    if (view.fit) map.fitBounds(L.latLngBounds(D.map(d => ll(d[3], d[4]))).pad(0.08)); else map.setView(ll(view.x, view.z), view.zoom);
+    labels();
+    maps[id] = { map, markers };
+    return maps[id];
+  }
+
+  makeMap("townmap", { x: 3490, z: 6468, zoom: 0.75 });
+  const dm = makeMap("dmap", { fit: true });
+
+  document.querySelectorAll(".dg-item").forEach((item, i) => {
+    item.setAttribute("tabindex", "0");
+    item.setAttribute("role", "button");
+    const go = () => {
+      if (!dm) return;
+      const d = D[i];
+      document.getElementById("dmap").scrollIntoView({ behavior: "smooth", block: "center" });
+      dm.map.flyTo(ll(d[3], d[4]), 0.5, { duration: 0.8 });
+      setTimeout(() => dm.markers[i].openPopup(), 850);
+    };
+    item.addEventListener("click", go);
+    item.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
   });
-  stage.addEventListener('pointermove', e => {
-    if (!pts.has(e.pointerId)) return;
-    pts.set(e.pointerId, [e.clientX, e.clientY]);
-    const r = stage.getBoundingClientRect();
-    if (pts.size >= 2) {
-      const v = Array.from(pts.values()), a = v[0], b = v[1];
-      const d = Math.hypot(a[0] - b[0], a[1] - b[1]);
-      const c = [(a[0] + b[0]) / 2 - r.left, (a[1] + b[1]) / 2 - r.top];
-      if (pinch) { x += c[0] - pinch.c[0]; y += c[1] - pinch.c[1]; zoomAt(d / pinch.d, c[0], c[1]); }
-      pinch = { d: d, c: c };
-    } else if (last) {
-      x += e.clientX - last[0]; y += e.clientY - last[1]; last = [e.clientX, e.clientY]; clamp(); apply();
-    }
-  });
-  const up = e => {
-    pts.delete(e.pointerId); pinch = null;
-    last = pts.size ? Array.from(pts.values())[0] : null;
-    if (!pts.size) stage.classList.remove('drag');
-  };
-  stage.addEventListener('pointerup', up);
-  stage.addEventListener('pointercancel', up);
-  document.querySelectorAll('.kw button').forEach(b => b.addEventListener('click', async () => {
-    const label = b.querySelector('span');
+
+  document.querySelectorAll(".kw button").forEach(b => b.addEventListener("click", async () => {
+    const label = b.querySelector("span");
     if (!label.dataset.orig) label.dataset.orig = label.textContent;
     let ok = true;
     try { await navigator.clipboard.writeText(b.dataset.copy); } catch (err) {
       ok = false;
-      const range = document.createRange(); range.selectNodeContents(b.querySelector('b'));
+      const range = document.createRange(); range.selectNodeContents(b.querySelector("b"));
       const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
     }
-    b.classList.add('copied');
-    label.textContent = ok ? '已複製 ✓' : '已選取，按 Ctrl+C';
-    setTimeout(() => { b.classList.remove('copied'); label.textContent = label.dataset.orig; }, 1600);
+    b.classList.add("copied");
+    label.textContent = ok ? "已複製 ✓" : "已選取，按 Ctrl+C";
+    setTimeout(() => { b.classList.remove("copied"); label.textContent = label.dataset.orig; }, 1600);
   }));
 })();
 </script>
