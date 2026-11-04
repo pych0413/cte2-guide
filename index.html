@@ -263,7 +263,7 @@ footer { border-top: 2px solid var(--ink); padding-top: 16px; font-size: var(--s
 .mapwrap { display: grid; gap: 8px; }
 .mapbox { height: min(72vh, 680px); min-height: 360px; width: 100%; border: 1px solid var(--rule); border-radius: 6px; background: #4a70aa; }
 .mapbox.short { height: min(60vh, 520px); }
-.mapbox .town-layer { image-rendering: pixelated; }
+.mapbox .leaflet-image-layer { image-rendering: crisp-edges; image-rendering: pixelated; }
 .dm { display: flex; align-items: center; justify-content: center; border-radius: 50%; color: #fff; font: 700 13px var(--font-data); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5); }
 .dm.t-s { background: #2e9f43; } .dm.t-m { background: #2a6edc; } .dm.t-l { background: #c8302d; }
 .dm.spawn { background: #d6a028; border-radius: 4px; }
@@ -551,7 +551,7 @@ footer { border-top: 2px solid var(--ink); padding-top: 16px; font-size: var(--s
     <div class="col" style="display:grid;gap:10px">
       <h3>城入面有咩</h3>
       <ul class="tight">
-        <li><strong>中央廣場</strong>：出生點、噴水池、5 個傳送門框、地图装置、副本告示板（南邊）。</li>
+        <li><strong>中央廣場</strong>：出生點、「新手城」传送石碑、噴水池、5 個傳送門框、地图装置、副本告示板（南邊）。</li>
         <li><strong>西區村</strong>：有圍牆嘅村，村民可以交易，有農田。</li>
         <li><strong>北街</strong>：旅館、酒館、市集屋、教堂、井同市集攤；再上面係城門。</li>
         <li><strong>東北角</strong>：法師塔、鐵匠鋪、馬房。</li>
@@ -567,7 +567,8 @@ footer { border-top: 2px solid var(--ink); padding-top: 16px; font-size: var(--s
         <li><strong>冇 <code>/home</code> 同 <code>/spawn</code></strong>。死咗而又冇床，就會返廣場出生點。</li>
         <li>床或者重生錨可以改你嘅重生點。</li>
         <li><strong>传送石碑（Waystone）</strong>：右鍵「發現」咗之後，就可以由任何一個石碑傳去另一個。村入面成日都有。</li>
-        <li>石碑之間傳送<strong>唔使經驗</strong>。不過要跨世界傳送，目的地一定要係<strong>全域（Global）石碑</strong>。廣場之後會擺一個全域石碑。</li>
+        <li><strong>廣場出生點東邊有個传送石碑，叫「新手城」</strong>（X 3493 Z 6460）。第一次入 server 記得右鍵佢一下登記。出去探索完，喺任何石碑或者用传送石都可以傳返嚟。</li>
+        <li>石碑之間傳送<strong>唔使經驗</strong>。要由其他世界直接傳返嚟，「新手城」石碑要設成<strong>全域（Global）</strong>。</li>
         <li>传送石（Warp Stone）隨身帶，可以傳返去你發現過嘅石碑（冷卻 2 分鐘）。仲有传送卷轴同返回卷轴。</li>
         <li>想圈地保護自己間屋：用<strong>金鋤頭</strong>右鍵地面（Flan 圈地）。</li>
       </ul>
@@ -703,8 +704,8 @@ footer { border-top: 2px solid var(--ink); padding-top: 16px; font-size: var(--s
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script>
 (() => {
-  const BASE = "maps/base.jpg", TOWN = "maps/town-base.jpg";
-  const BASE_B = [[-7400, 2450], [-5200, 4608]];   // lat = -Z, lng = X
+  const BASE = "maps/full-q.png";
+  const BASE_B = [[-7400, 2450], [-5200, 4608]];   // image covers X 2450..4607, Z 5200..7399   // lat = -Z, lng = X
   const TOWN_B = [[-6621, 3260], [-6316, 3721]];
   const SPAWN = [3488, 6460];
   const D = [
@@ -732,7 +733,7 @@ footer { border-top: 2px solid var(--ink); padding-top: 16px; font-size: var(--s
     ["l", "霜冻巨兽", "Mowzie's Mobs", 2880, 5520, "雪山頂。Boss 最少 50 級。", 1],
     ["l", "巫妖塔", "Bosses of Mass Destruction", 2704, 6384, "暗夜巫妖，Boss 最少 90 級，後期先去。", 1]
   ];
-  const TOWN_L = [["新手廣場・出生點", 3488, 6474], ["西區村", 3345, 6470], ["旅館", 3436, 6416], ["酒館", 3468, 6419], ["市集屋", 3494, 6417], ["教堂", 3520, 6418],
+  const TOWN_L = [["新手廣場・出生點", 3488, 6474], ["传送石碑「新手城」", 3493, 6463], ["西區村", 3345, 6470], ["旅館", 3436, 6416], ["酒館", 3468, 6419], ["市集屋", 3494, 6417], ["教堂", 3520, 6418],
     ["城門", 3486, 6356], ["法師塔", 3546, 6391], ["鐵匠鋪", 3572, 6392], ["馬房", 3595, 6392], ["圍牆城", 3615, 6455], ["城堡", 3461, 6558],
     ["石磚鐵匠鋪", 3560, 6532], ["小石堡", 3599, 6525], ["井・市集攤", 3446, 6441], ["傳送門 ×4", 3488, 6447], ["深淵門", 3513, 6461], ["副本告示板", 3488, 6494]];
   const DIRS = ["北", "東北", "東", "東南", "南", "西南", "西", "西北"];
@@ -748,10 +749,9 @@ footer { border-top: 2px solid var(--ink); padding-top: 16px; font-size: var(--s
     const el = document.getElementById(id);
     if (!el) return null;
     if (!window.L) { fallback(el); return null; }
-    const map = L.map(el, { crs: L.CRS.Simple, minZoom: -3, maxZoom: 3, zoomSnap: 0.25, zoomDelta: 0.5, wheelPxPerZoomLevel: 80,
+    const map = L.map(el, { crs: L.CRS.Simple, minZoom: -3, maxZoom: 4, zoomSnap: 0.25, zoomDelta: 0.5, wheelPxPerZoomLevel: 80,
       maxBounds: L.latLngBounds(BASE_B).pad(0.15), maxBoundsViscosity: 0.9, attributionControl: false });
-    L.imageOverlay(BASE, BASE_B).addTo(map);
-    L.imageOverlay(TOWN, TOWN_B, { className: "town-layer" }).addTo(map);
+    L.imageOverlay(BASE, BASE_B, { className: "block-map" }).addTo(map);
     const tl = L.layerGroup().addTo(map);
     TOWN_L.forEach(t => L.marker(ll(t[1], t[2]), { icon: L.divIcon({ className: "", html: '<div class="tl">' + t[0] + '</div>', iconSize: [0, 0] }), interactive: false, keyboard: false }).addTo(tl));
     L.marker(ll(SPAWN[0], SPAWN[1]), { icon: L.divIcon({ className: "", html: '<div class="dm spawn" style="width:22px;height:22px">★</div>', iconSize: [22, 22], iconAnchor: [11, 11] }), title: "新手城出生點" })
