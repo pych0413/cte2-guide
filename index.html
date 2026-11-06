@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Craft to Exile 2 新手手記：安裝、轉中文、怪物等級、職業、28 個新手流派同評分、昇華、寶珠寶石符文、獨特裝備查詢、傳送門、新手城同附近副本。">
+<meta name="description" content="Craft to Exile 2 新手手記：安裝、轉中文、怪物等級、職業、28 個新手流派同評分、昇華、寶珠寶石符文、獨特裝備查詢、錢幣同商店、傳送門、新手城同附近副本。">
 <meta name="theme-color" content="#0e1315">
 <title>放逐者手記</title>
 
@@ -77,6 +77,13 @@
   --mc-yellow-tint: rgb(255 238 80 / 0.16);
   --mc-green: #23803a;
   --mc-purple: #a8329e;
+  /* coin swatches in 10 (Lightman's Currency coin colours) */
+  --coin-cu: #b5683b;
+  --coin-fe: #a7b0b5;
+  --coin-au: #d9a91c;
+  --coin-em: #1f9d55;
+  --coin-di: #3fbfcf;
+  --coin-ne: #4a3f45;
   --font-display: "Noto Serif TC", "Noto Serif SC", "Songti TC", "PMingLiU", serif;
   --font-body: "Noto Sans TC", "Noto Sans SC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
   --font-num: "Barlow Condensed", "Arial Narrow", "Noto Sans TC", sans-serif;
@@ -149,6 +156,12 @@
     --mc-yellow-tint: rgb(255 255 85 / 0.07);
     --mc-green: #55ff55;
     --mc-purple: #ff7bff;
+    --coin-cu: #c97a4a;
+    --coin-fe: #c3cbd0;
+    --coin-au: #f0c03a;
+    --coin-em: #38c172;
+    --coin-di: #5fd6e4;
+    --coin-ne: #75666e;
   }
 }
 :root[data-theme="dark"] {
@@ -209,6 +222,12 @@
   --mc-yellow-tint: rgb(255 255 85 / 0.07);
   --mc-green: #55ff55;
   --mc-purple: #ff7bff;
+  --coin-cu: #c97a4a;
+  --coin-fe: #c3cbd0;
+  --coin-au: #f0c03a;
+  --coin-em: #38c172;
+  --coin-di: #5fd6e4;
+  --coin-ne: #75666e;
 }
 
 * { box-sizing: border-box; }
@@ -397,6 +416,34 @@ td .en { display: block; font-size: var(--step--1); color: var(--muted); font-fa
 td .sub { display: block; font-size: var(--step--1); color: var(--muted); }
 .cls-cell { display: flex; align-items: center; gap: 10px; }
 .cls-cell .ico { width: 34px; height: 34px; }
+
+/* ---------- money and coin shop (10) ---------- */
+h4 { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; line-height: 1.4; margin: 0; }
+.coin { display: inline-block; width: 0.95em; height: 0.95em; border-radius: 50%; margin-right: 8px; vertical-align: -0.12em;
+  border: 1px solid var(--rule); box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.2); }
+.c-cu { background: var(--coin-cu); } .c-fe { background: var(--coin-fe); } .c-au { background: var(--coin-au); }
+.c-em { background: var(--coin-em); } .c-di { background: var(--coin-di); } .c-ne { background: var(--coin-ne); }
+table.coins td:first-child { white-space: nowrap; }
+table.coins td:first-child .sub { padding-left: calc(0.95em + 8px); }
+table.coins th .sub { display: block; }
+.shopfacts div { grid-column: 1 / -1; }
+#shop code { white-space: nowrap; }
+.price th.pc, .price td.pc { text-align: right; }
+.price th .sub { display: block; font-family: var(--font-data); font-size: 0.75rem; }
+.price td.tier { white-space: nowrap; }
+.price .cn { display: inline-block; white-space: nowrap; }
+.price .cu { display: block; font-family: var(--font-data); font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.price .dl { display: block; }
+.price .nw { white-space: nowrap; }
+.price td.na { color: var(--muted); }
+.price tr.span td[colspan] { padding-left: 10px; color: var(--muted); white-space: nowrap; }
+/* bracket table: the item column stays put while the five price columns scroll sideways on phones */
+.price.grid th:first-child, .price.grid td:first-child { position: sticky; left: 0; z-index: 1; background: var(--bg); min-width: 7.5em;
+  box-shadow: inset -1px 0 0 var(--rule), inset 0 -1px 0 var(--rule); }
+.price.grid td.pc { min-width: 5.4em; padding-left: 10px; }
+.price.grid td.pc .cn { display: block; }
+.rarity-line.prof { display: flex; gap: 2px 16px; margin-top: 2px; }
+.rarity-line.prof > span { white-space: nowrap; }
 
 /* ---------- level ruler (bands drawn to scale on 1-100) ---------- */
 .ruler { display: grid; gap: 8px; }
@@ -868,7 +915,7 @@ footer { display: grid; gap: 8px; font-size: var(--step--1); color: var(--muted)
       </ul>
     </div>
   </div>
-  <p class="sub col">畀第一次玩 CtE2 嘅朋友：怪物等級點計、職業點揀、幾時昇華、點去其他世界、新手城同附近副本喺邊，仲有新手流派、寶珠寶石符文同獨特裝備查詢。遊戲入面係簡體中文，所以下面遊戲內嘅名都照用簡體。</p>
+  <p class="sub col">畀第一次玩 CtE2 嘅朋友：怪物等級點計、職業點揀、幾時昇華、點去其他世界、新手城同附近副本喺邊，仲有新手流派、寶珠寶石符文同獨特裝備查詢，同埋錢幣點賺點使。遊戲入面係簡體中文，所以下面遊戲內嘅名都照用簡體。</p>
   <div class="cta"><a class="pri" href="#join">由頭開始</a><a class="sec" href="#builds">直接揀流派</a></div>
   <dl class="facts">
     <div><dt>Server</dt><dd>comeplay.tplinkdns.com:25566</dd></div>
@@ -895,17 +942,18 @@ footer { display: grid; gap: 8px; font-size: var(--step--1); color: var(--muted)
         <li><a href="#gear"><span class="n">07</span><span>裝備</span></a></li>
         <li><a href="#items"><span class="n">08</span><span>寶珠、寶石同符文</span></a></li>
         <li><a href="#uniques"><span class="n">09</span><span>獨特裝備</span></a></li>
+        <li><a href="#shop"><span class="n">10</span><span>錢幣同商店</span></a></li>
       </ol></div>
       <div class="toc-group"><p class="toc-h" id="tg-4">世界</p><ol aria-labelledby="tg-4">
-        <li><a href="#worlds"><span class="n">10</span><span>去其他世界</span></a></li>
-        <li><a href="#town"><span class="n">11</span><span>新手城同返城</span></a></li>
-        <li><a href="#dungeons"><span class="n">12</span><span>附近副本</span></a></li>
+        <li><a href="#worlds"><span class="n">11</span><span>去其他世界</span></a></li>
+        <li><a href="#town"><span class="n">12</span><span>新手城同返城</span></a></li>
+        <li><a href="#dungeons"><span class="n">13</span><span>附近副本</span></a></li>
       </ol></div>
       <div class="toc-group"><p class="toc-h" id="tg-5">其他</p><ol aria-labelledby="tg-5">
-        <li><a href="#death"><span class="n">13</span><span>死亡同伏位</span></a></li>
-        <li><a href="#party"><span class="n">14</span><span>組隊</span></a></li>
-        <li><a href="#faq"><span class="n">15</span><span>常見問題</span></a></li>
-        <li><a href="#keys"><span class="n">16</span><span>按鍵</span></a></li>
+        <li><a href="#death"><span class="n">14</span><span>死亡同伏位</span></a></li>
+        <li><a href="#party"><span class="n">15</span><span>組隊</span></a></li>
+        <li><a href="#faq"><span class="n">16</span><span>常見問題</span></a></li>
+        <li><a href="#keys"><span class="n">17</span><span>按鍵</span></a></li>
       </ol></div>
     </div>
   </nav>
@@ -1664,7 +1712,7 @@ footer { display: grid; gap: 8px; font-size: var(--step--1); color: var(--muted)
     <li>每件裝備有「潜能」：用寶珠改裝備會扣潜能，扣晒就改唔到。鑲寶石同符文唔扣潜能；鑲錯可以用宝石提取工具（唔扣潜能）或者符文提取工具（每次扣 1 點潜能）拆返出嚟。</li>
     <li>常用寶珠：色彩宝珠（普通裝隨機升稀有度）、升阶宝珠（升一級稀有度）、新生宝珠（重洗一條詞綴）、重生宝珠（重洗全部詞綴）、开孔宝珠（加孔）。</li>
     <li>唔要嘅裝備放落<strong>回收站</strong>，會變成石頭同職業經驗，唔好直接掉。</li>
-    <li>呢個 server 打<strong>敵對怪</strong>掉嘅垃圾會自動變成<strong>铜币</strong>（99%），只有 1% 會照掉原本嘅嘢，留俾任務同懸賞用。裝備、Mine and Slash 物品同 mod 材料照常掉；雞、兔、魷魚呢啲動物亦照常掉。</li>
+    <li>呢個 server 打<strong>敵對怪</strong>掉嘅垃圾會自動變成<strong>铜币</strong>（99.9%），只有 0.1% 會照掉原本嘅嘢，留俾任務同懸賞用。裝備、Mine and Slash 物品同 mod 材料照常掉；雞、兔、魷魚呢啲動物亦照常掉。</li>
     <li>會變铜币嘅 20 款（遊戲內名）：腐肉、骨头、骨粉、箭、线、蜘蛛眼、火药、木棍、玻璃瓶、糖、羽毛、墨囊、毒马铃薯、兔子皮、兽肉、腐烂鱼肉、骸骨、尸蛆、远古骷髅骨、昆虫内脏。斬樹、挖嘢掉嘅樹苗同泥土唔係怪物掉，可以用背包嘅「虚空升级」自動刪走。</li>
     <li>按住 <kbd>Shift</kbd> 睇件裝備需要幾多級、幾多屬性點。</li>
   </ul>
@@ -1723,8 +1771,174 @@ footer { display: grid; gap: 8px; font-size: var(--step--1); color: var(--muted)
   </div>
 </section>
 
+<section id="shop">
+  <header><p class="label">10 · 錢幣同商店</p><h2>錢幣點賺、點使</h2></header>
+  <p class="lead col">呢個 server 用 Lightman's Currency 嘅錢幣做錢。打怪、開寶箱、釣魚、做任務都會有，用嚟傳送、合成、喺任務書買寶石，仲可以喺新手城嘅錢幣商店買裝備、独特裝、寶珠同符文。</p>
+
+  <h3 class="col" id="shop-coins">六種錢幣</h3>
+  <p class="col">每種錢幣等於 10 個細一級嘅。下面所有價錢都用呢六個名，細字係總共值幾多銅幣。</p>
+  <div class="tablewrap">
+    <table class="coins">
+      <thead><tr><th>錢幣<span class="sub">遊戲內名</span></th><th>等於</th><th class="num">值幾多銅幣</th></tr></thead>
+      <tbody>
+        <tr><td><span class="coin c-cu" aria-hidden="true"></span>銅幣<span class="sub">铜币</span></td><td>最細</td><td class="num">1</td></tr>
+        <tr><td><span class="coin c-fe" aria-hidden="true"></span>鐵幣<span class="sub">铁币</span></td><td>10 銅幣</td><td class="num">10</td></tr>
+        <tr><td><span class="coin c-au" aria-hidden="true"></span>金幣<span class="sub">金币</span></td><td>10 鐵幣</td><td class="num">100</td></tr>
+        <tr><td><span class="coin c-em" aria-hidden="true"></span>綠寶石幣<span class="sub">绿宝石币</span></td><td>10 金幣</td><td class="num">1,000</td></tr>
+        <tr><td><span class="coin c-di" aria-hidden="true"></span>鑽石幣<span class="sub">钻石币</span></td><td>10 綠寶石幣</td><td class="num">10,000</td></tr>
+        <tr><td><span class="coin c-ne" aria-hidden="true"></span>下界合金幣<span class="sub">下界合金币</span></td><td>10 鑽石幣</td><td class="num">100,000</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small muted col">錢幣唔可以用金屬錠整（鑄幣機關咗），只可以靠下面嘅方法賺。</p>
+
+  <h3 class="col" id="shop-earn">點樣賺錢</h3>
+  <p class="col">最穩定係<strong>親手打敵對怪</strong>：要係你殺嘅先計，動物唔計。掉幾多睇你喺邊個世界，同怪物等級無關，越後期嘅世界掉得越多。</p>
+  <div class="tablewrap">
+    <table class="price">
+      <thead><tr><th>世界</th><th>每隻怪可能掉 · 機會</th><th class="num">平均<span class="sub">銅幣</span></th></tr></thead>
+      <tbody>
+        <tr><td>主世界<span class="en">Overworld</span></td><td><span class="dl">2–6 個銅幣 <span class="nw">· 50%</span></span><span class="dl">1–3 個鐵幣 <span class="nw">· 20%</span></span></td><td class="num">6</td></tr>
+        <tr><td>下界<span class="en">Nether</span></td><td><span class="dl">3–8 個銅幣 <span class="nw">· 75%</span></span><span class="dl">1–4 個鐵幣 <span class="nw">· 25%</span></span><span class="dl">1 個金幣 <span class="nw">· 5%</span></span></td><td class="num">15</td></tr>
+        <tr><td>深园<span class="en">Undergarden</span></td><td><span class="dl">3–9 個銅幣 <span class="nw">· 80%</span></span><span class="dl">1–5 個鐵幣 <span class="nw">· 30%</span></span><span class="dl">1 個金幣 <span class="nw">· 10%</span></span></td><td class="num">24</td></tr>
+        <tr><td>永昼 / 恒晓<span class="en">Blue Skies</span></td><td><span class="dl">1–6 個鐵幣 <span class="nw">· 50%</span></span><span class="dl">1–2 個金幣 <span class="nw">· 20%</span></span><span class="dl">1 個綠寶石幣 <span class="nw">· 5%</span></span></td><td class="num">98</td></tr>
+        <tr><td>终界<span class="en">The End</span></td><td><span class="dl">2–8 個鐵幣 <span class="nw">· 75%</span></span><span class="dl">1–3 個金幣 <span class="nw">· 25%</span></span><span class="dl">1–2 個綠寶石幣 <span class="nw">· 5%</span></span></td><td class="num">163</td></tr>
+        <tr><td>深淵<span class="en">Otherside</span></td><td><span class="dl">3–9 個鐵幣 <span class="nw">· 80%</span></span><span class="dl">1–4 個金幣 <span class="nw">· 30%</span></span><span class="dl">1–3 個綠寶石幣 <span class="nw">· 8%</span></span></td><td class="num">283</td></tr>
+        <tr><td>暮色森林<span class="en">Twilight Forest</span></td><td><span class="dl">5–12 個鐵幣 <span class="nw">· 80%</span></span><span class="dl">1–5 個金幣 <span class="nw">· 35%</span></span><span class="dl">1–4 個綠寶石幣 <span class="nw">· 10%</span></span></td><td class="num">423</td></tr>
+        <tr><td>副本地圖<span class="en">Dungeon Realm 等</span></td><td>同主世界一樣</td><td class="num">6</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul class="tight col">
+    <li><strong>垃圾變銅幣</strong>：敵對怪掉嘅腐肉、骨头等 20 款垃圾，99.9% 會變成銅幣（每件 1 個），主世界平均每隻怪多大約 2 個。清單見 <a href="#gear">07 · 裝備</a>。</li>
+    <li><strong>寶箱</strong>：Dungeon Realm 地圖入面嘅寶箱有錢幣，越高級嘅寶箱越多（最好嗰級平均過千銅幣）。一般結構嘅寶箱都有機會有少量錢幣。</li>
+    <li><strong>傳說魚</strong>：釣到 10 款傳說魚任何一條，會多 1–5 個綠寶石幣。</li>
+    <li><strong>任務書</strong>：全部任務嘅錢幣獎勵加埋大約值 72 萬銅幣，每人自己攞一次。大部分喺 Act V、尾聲同支線章節（烹飪、儲存、探索、釣魚等）；冇任務可以重複攞錢。</li>
+    <li><strong>村民交易</strong>：原本收或者俾綠寶石嘅交易，而家改咗用鐵幣（例如 20 個小麥換 1 個鐵幣）。</li>
+    <li><strong>MCA 村莊稅</strong>：你管嘅 MCA 村會定期交稅（鐵幣），但好少，20 個村民嘅村大約每個鐘 40 銅幣。</li>
+  </ul>
+
+  <h3 class="col" id="shop-spend">錢幣用嚟做咩</h3>
+  <ul class="tight col">
+    <li><strong>副职业合成</strong>（炼金、烹饪、注魔、装备制作）：每做一次都收錢，睇成品稀有度：
+      <span class="rarity-line prof"><span><span class="rar rar-common">普通</span> 1 銅幣</span><span><span class="rar rar-uncommon">少见</span> 5 銅幣</span><span><span class="rar rar-rare">珍稀</span> 1 鐵幣</span><span><span class="rar rar-epic">史诗</span> 5 鐵幣</span><span><span class="rar rar-legendary">传说</span> 1 金幣</span><span><span class="rar rar-mythic">神话</span> 1 綠寶石幣</span></span></li>
+    <li><strong>任務書「战役商店」章節</strong>：可以重複買光環寶石、辅助宝石同隨機独特裝，見下表。</li>
+    <li><strong>传送石碑</strong>：每次傳送每 100 格收 1 個銅幣（唔夠 100 格當 100 格），最多 10 個。</li>
+    <li><strong>哥布林商人</strong>：用綠寶石幣買藥水（1–4 個）、經驗瓶（3 個）、命名牌（24 個）同 Mine and Slash 石頭。</li>
+    <li><strong>Lightman's 村民</strong>：Banker 賣交易方塊（5 鐵幣到 10 金幣），Cashier 賣附魔書同附魔鑽石裝備（2–8 鑽石幣）。</li>
+    <li><strong>Farming for Blockheads 市場</strong>：買種子、樹苗、動物蛋，由 3 銅幣到 1 鑽石幣。</li>
+    <li><strong>Gateway 珍珠</strong>：Illager Invasion 同 Overworldian Nights 嘅合成要 1 個金幣，Ice Maze 同 Captain Cornelia 要 1 個綠寶石幣。</li>
+    <li><strong>Umvuthi</strong>（Mowzie's Mobs）：Sun's Blessing 要 32 個金幣。</li>
+    <li><strong>Flan 圈地格</strong>：用金幣買多啲格（<code>/flan buy</code>），用唔晒可以賣返做鐵幣（<code>/flan sell</code>）。</li>
+    <li><strong>玩家之間</strong>：序章送嘅錢包（<kbd>Shift</kbd>＋<kbd>B</kbd>）用嚟裝錢幣；ATM 可以換大細錢同存錢（銀行冇利息）；交易方塊可以開舖賣嘢畀其他玩家。</li>
+  </ul>
+  <div class="tablewrap">
+    <table class="price">
+      <thead><tr><th>「战役商店」任務</th><th class="pc">每次</th></tr></thead>
+      <tbody>
+        <tr><td>强化宝石商店 I、II</td><td class="pc"><span class="cn">1 金幣</span><span class="cu">100</span></td></tr>
+        <tr><td>强化宝石商店 III</td><td class="pc"><span class="cn">1 綠寶石幣</span><span class="cu">1,000</span></td></tr>
+        <tr><td>强化宝石商店 IV</td><td class="pc"><span class="cn">1 鑽石幣</span><span class="cu">10,000</span></td></tr>
+        <tr><td>支援宝石商店 I、II</td><td class="pc"><span class="cn">1 綠寶石幣</span><span class="cu">1,000</span></td></tr>
+        <tr><td>支援宝石商店 III</td><td class="pc"><span class="cn">1 鑽石幣</span><span class="cu">10,000</span></td></tr>
+        <tr><td>支援宝石商店 IV</td><td class="pc"><span class="cn">1 下界合金幣</span><span class="cu">100,000</span></td></tr>
+        <tr><td>随机独特商店<span class="sub">自己揀 60／80／100 級</span></td><td class="pc"><span class="cn">1 下界合金幣</span><span class="cu">100,000</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <h3 class="col" id="coin-shop">錢幣商店</h3>
+  <p class="col">新手城有個錢幣商店，用錢幣直接買<span class="rar rar-epic">史诗</span>、<span class="rar rar-legendary">传说</span>、<span class="rar rar-mythic">神话</span>、<span class="rar rar-runed">铭符</span>裝備，指定或者隨機嘅<span class="rar rar-unique">独特</span>裝備，仲有寶珠同符文。</p>
+  <dl class="facts shopfacts">
+    <div><dt>喺邊</dt><dd>廣場東邊，天賦重置祭壇南面</dd></div>
+    <div><dt>座標</dt><dd>X 3508 · Y 78 · Z 6492</dd></div>
+    <div><dt>點開</dt><dd>右鍵「錢幣商人」或者櫃枱上嘅寶箱</dd></div>
+  </dl>
+  <ol class="steps col">
+    <li>行去廣場東邊嗰排（心之祭壇、天賦重置祭壇，再南面就係商店攤位），右鍵<strong>錢幣商人</strong>或者櫃枱上面個寶箱，會開一個 6 行嘅箱介面。開住嗰陣睇唔到自己背包，下面幾行係商店嘅掣：主頁、上一頁、頁數、下一頁、關閉，仲有「你嘅錢」、「你嘅等級」（連價錢檔）同「說明」。</li>
+    <li>主頁有 5 格：<strong>隨機裝備</strong>、<strong>獨特裝備</strong>、<strong>隨機獨特裝</strong>、<strong>寶珠</strong>、<strong>符文</strong>。</li>
+    <li>隨機裝備：先揀稀有度，再揀部位。「隨機部位」係基本價；指定一款底子（43 款，例如剑、板甲头盔）要 1.5 倍。</li>
+    <li>獨特裝備：揀武器、防具、飾品或者副手，再用「上一頁／下一頁」揭。每件寫住「標準」定「稀有」、要幾多級同價錢；紅字即係你未夠級。</li>
+    <li>揀好就會去<strong>確認頁</strong>：中間係一件按你等級整嘅示範，下面寫價錢同「買完剩」幾多。撳綠色「確認購買」先會扣錢（確認頁開咗之後要等一陣先撳得，防止雙擊買錯），撳紅色「返回」就唔買。寶珠同符文可以揀買 1 粒定 5 粒。</li>
+    <li>買完會留喺確認頁，示範會換過一件；想再買就再撳確認。</li>
+  </ol>
+  <ul class="tight col">
+    <li><strong>裝備同独特裝係買嗰下先整</strong>：等級係你而家嘅 Mine and Slash 等級，屬性全新隨機。確認頁嗰件只係示範，買到嗰件數字會唔同。</li>
+    <li><strong>價錢跟你嘅等級檔</strong>：A 檔 1–19 級、B 20–39、C 40–59、D 60–79、E 80–100。升咗檔就貴啲，但買到嘅裝備都高級啲。寶珠同符文唔分檔，人人一樣價。</li>
+    <li>稀有度有最低等級：史诗 10 級、传说 25 級、神话 50 級，铭符 1 級起。未夠級嗰格會鎖住，寫住要幾級。</li>
+    <li>指定独特裝要你嘅等級夠佢嘅最低掉落等級，例如 60 級先掉嗰件，你要 60 級先買得。全部独特裝都有得揀，連平時只喺聯賽掉嗰啲都有。</li>
+    <li><strong>「稀有」独特裝</strong>即係平時好難攞嗰啲：只喺聯賽掉、要高階地圖先掉，或者掉落權重好低。價錢係「標準」嘅 1.5 倍。</li>
+    <li><strong>隨機独特裝</strong>按你等級隨機整一件，價錢係指定「標準」嘅 15%，平好多。</li>
+    <li><strong>背包要有空位</strong>：裝備要 1 格，寶珠符文按數量計。冇位唔會賣，亦唔會扣錢。</li>
+    <li>錢由背包同著住嘅錢包一齊扣，唔使啱數，會自動找返散錢入背包。如果要用到錢包啲錢，背包要多留 5 格空位畀找續；唔夠位就唔會賣。副手、盔甲格同背囊入面嘅錢幣唔計。</li>
+    <li>撳確認嗰下會再計一次價錢；如果啱啱升咗檔，會叫你睇過新價錢再確認。</li>
+    <li>商店只賣唔收，冇得賣返嘢俾佢。</li>
+  </ul>
+
+  <h3 class="col" id="shop-prices">商店價錢</h3>
+  <h4 class="col">裝備同独特裝（按你嘅等級檔）</h4>
+  <div class="tablewrap">
+    <table class="price grid">
+      <thead><tr><th>商品</th><th class="pc">A 檔<span class="sub">Lv 1–19</span></th><th class="pc">B 檔<span class="sub">Lv 20–39</span></th><th class="pc">C 檔<span class="sub">Lv 40–59</span></th><th class="pc">D 檔<span class="sub">Lv 60–79</span></th><th class="pc">E 檔<span class="sub">Lv 80–100</span></th></tr></thead>
+      <tbody>
+        <tr><td><span class="rar rar-epic">史诗</span><span class="sub">隨機部位 · 10 級起</span></td><td class="pc"><span class="cn">5 金幣</span><span class="cu">500</span></td><td class="pc"><span class="cn">1 綠寶石幣</span> <span class="cn">5 金幣</span><span class="cu">1,500</span></td><td class="pc"><span class="cn">5 綠寶石幣</span><span class="cu">5,000</span></td><td class="pc"><span class="cn">1 鑽石幣</span><span class="cu">10,000</span></td><td class="pc"><span class="cn">1 鑽石幣</span> <span class="cn">2 綠寶石幣</span><span class="cu">12,000</span></td></tr>
+        <tr><td><span class="rar rar-runed">铭符</span><span class="sub">隨機部位 · 1 級起 · 2–6 個空孔，唔包符文</span></td><td class="pc"><span class="cn">1 綠寶石幣</span><span class="cu">1,000</span></td><td class="pc"><span class="cn">3 綠寶石幣</span><span class="cu">3,000</span></td><td class="pc"><span class="cn">1 鑽石幣</span><span class="cu">10,000</span></td><td class="pc"><span class="cn">2 鑽石幣</span><span class="cu">20,000</span></td><td class="pc"><span class="cn">2 鑽石幣</span> <span class="cn">4 綠寶石幣</span><span class="cu">24,000</span></td></tr>
+        <tr><td><span class="rar rar-legendary">传说</span><span class="sub">隨機部位 · 25 級起</span></td><td class="pc na" aria-label="未夠等級">—</td><td class="pc"><span class="cn">4 綠寶石幣</span> <span class="cn">5 金幣</span><span class="cu">4,500</span></td><td class="pc"><span class="cn">1 鑽石幣</span> <span class="cn">5 綠寶石幣</span><span class="cu">15,000</span></td><td class="pc"><span class="cn">3 鑽石幣</span><span class="cu">30,000</span></td><td class="pc"><span class="cn">3 鑽石幣</span> <span class="cn">6 綠寶石幣</span><span class="cu">36,000</span></td></tr>
+        <tr><td><span class="rar rar-mythic">神话</span><span class="sub">隨機部位 · 50 級起</span></td><td class="pc na" aria-label="未夠等級">—</td><td class="pc na" aria-label="未夠等級">—</td><td class="pc"><span class="cn">4 鑽石幣</span> <span class="cn">5 綠寶石幣</span><span class="cu">45,000</span></td><td class="pc"><span class="cn">9 鑽石幣</span><span class="cu">90,000</span></td><td class="pc"><span class="cn">1 下界合金幣</span><span class="cu">100,000</span></td></tr>
+        <tr class="span"><td>指定部位<span class="sub">上面四款都得，43 款底子任揀（例如剑、板甲头盔）</span></td><td colspan="5">隨機部位價錢 ×1.5</td></tr>
+        <tr><td><span class="rar rar-unique">隨機独特裝</span><span class="sub">指定「標準」價錢嘅 15%</span></td><td class="pc"><span class="cn">2 綠寶石幣</span> <span class="cn">1 金幣</span><span class="cu">2,100</span></td><td class="pc"><span class="cn">6 綠寶石幣</span><span class="cu">6,000</span></td><td class="pc"><span class="cn">2 鑽石幣</span> <span class="cn">1 綠寶石幣</span><span class="cu">21,000</span></td><td class="pc"><span class="cn">3 鑽石幣</span> <span class="cn">9 綠寶石幣</span><span class="cu">39,000</span></td><td class="pc"><span class="cn">5 鑽石幣</span> <span class="cn">1 綠寶石幣</span><span class="cu">51,000</span></td></tr>
+        <tr><td><span class="rar rar-unique">指定独特裝</span> · 標準<span class="sub">169 件</span></td><td class="pc"><span class="cn">1 鑽石幣</span> <span class="cn">4 綠寶石幣</span><span class="cu">14,000</span></td><td class="pc"><span class="cn">4 鑽石幣</span><span class="cu">40,000</span></td><td class="pc"><span class="cn">1 下界合金幣</span> <span class="cn">4 鑽石幣</span><span class="cu">140,000</span></td><td class="pc"><span class="cn">2 下界合金幣</span> <span class="cn">6 鑽石幣</span><span class="cu">260,000</span></td><td class="pc"><span class="cn">3 下界合金幣</span> <span class="cn">4 鑽石幣</span><span class="cu">340,000</span></td></tr>
+        <tr><td><span class="rar rar-unique">指定独特裝</span> · 稀有<span class="sub">87 件 · 標準 ×1.5</span></td><td class="pc"><span class="cn">2 鑽石幣</span> <span class="cn">1 綠寶石幣</span><span class="cu">21,000</span></td><td class="pc"><span class="cn">6 鑽石幣</span><span class="cu">60,000</span></td><td class="pc"><span class="cn">2 下界合金幣</span> <span class="cn">1 鑽石幣</span><span class="cu">210,000</span></td><td class="pc"><span class="cn">3 下界合金幣</span> <span class="cn">9 鑽石幣</span><span class="cu">390,000</span></td><td class="pc"><span class="cn">5 下界合金幣</span> <span class="cn">1 鑽石幣</span><span class="cu">510,000</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small muted col">— ＝嗰個檔未夠等級買。手機可以左右掃睇 C、D、E 檔。價錢大約係「喺嗰個檔專心打怪幾耐」：隨機史诗大約 1 個鐘，指定標準独特裝大約 27 個鐘；任務書嘅大筆錢幣可以幫你早啲買到。</p>
+  <details class="gloss"><summary>睇晒 87 件「稀有」独特裝</summary><div class="gloss-body"><div class="tablewrap"><table><thead><tr><th>独特裝</th><th>底子</th><th class="num">最低等級</th><th>點解稀有</th></tr></thead><tbody><tr><td>挑战者的护腰</td><td>板甲護脛</td><td class="num">1</td><td>聯賽限定</td></tr><tr><td>白板</td><td>皮褲</td><td class="num">1</td><td>好少掉</td></tr><tr><td>舌之诅咒</td><td>布帽</td><td class="num">1</td><td>聯賽限定</td></tr><tr><td>野兽</td><td>板甲</td><td class="num">1</td><td>聯賽限定</td></tr><tr><td>链锁橡树</td><td>皮甲</td><td class="num">1</td><td>聯賽限定</td></tr><tr><td>数之诅咒</td><td>項鍊</td><td class="num">1</td><td>聯賽限定</td></tr><tr><td>缠绕藤蔓</td><td>項鍊</td><td class="num">1</td><td>聯賽限定</td></tr><tr><td>血咒</td><td>戒指</td><td class="num">1</td><td>聯賽限定</td></tr><tr><td>一文字</td><td>劍</td><td class="num">1</td><td>好少掉</td></tr><tr><td>日炎胸甲</td><td>板甲護脛</td><td class="num">10</td><td>聯賽限定</td></tr><tr><td>余烬织物</td><td>布褲</td><td class="num">20</td><td>聯賽限定</td></tr><tr><td>金秋喜丰收</td><td>戒指</td><td class="num">20</td><td>聯賽限定</td></tr><tr><td>重影</td><td>弩</td><td class="num">20</td><td>聯賽限定</td></tr><tr><td>女王的注视<span class="sub">3 款，效果唔同</span></td><td>盾</td><td class="num">30</td><td>好少掉</td></tr><tr><td>丰收的恩赐</td><td>鎖甲頭盔</td><td class="num">40</td><td>聯賽限定</td></tr><tr><td>冠军的护腰</td><td>鱗甲褲子</td><td class="num">40</td><td>聯賽限定</td></tr><tr><td>沃特之腿</td><td>錘</td><td class="num">55</td><td>好少掉</td></tr><tr><td>修补匠之皮</td><td>背心胸甲</td><td class="num">60</td><td>地圖 40 階起</td></tr><tr><td>塔尔塔罗斯裹布</td><td>皮甲</td><td class="num">60</td><td>聯賽限定</td></tr><tr><td>苦力怕的虔诚</td><td>鱗甲頭盔</td><td class="num">60</td><td>聯賽限定</td></tr><tr><td>议会之心</td><td>背心頭盔</td><td class="num">60</td><td>地圖 40 階起</td></tr><tr><td>奥祖娜的永恒之令</td><td>戒指</td><td class="num">60</td><td>聯賽限定、地圖 40 階起</td></tr><tr><td>禁锢之坠</td><td>項鍊</td><td class="num">60</td><td>聯賽限定</td></tr><tr><td>邪恶指环<span class="sub">5 款，效果唔同</span></td><td>戒指</td><td class="num">60</td><td>聯賽限定</td></tr><tr><td>书面之言</td><td>法典</td><td class="num">60</td><td>地圖 60 階起</td></tr><tr><td>幸运纪念品</td><td>圖騰</td><td class="num">60</td><td>聯賽限定</td></tr><tr><td>Kuko Shakaku</td><td>弓</td><td class="num">60</td><td>地圖 60 階起</td></tr><tr><td>临终之息</td><td>長杖</td><td class="num">60</td><td>地圖 60 階起</td></tr><tr><td>凋零之焰</td><td>斧</td><td class="num">60</td><td>地圖 60 階起</td></tr><tr><td>汲肠者</td><td>弩</td><td class="num">60</td><td>地圖 40 階起</td></tr><tr><td>碎片之主</td><td>鐮刀</td><td class="num">60</td><td>地圖 80 階起、好少掉</td></tr><tr><td>西风之刃</td><td>斧</td><td class="num">60</td><td>聯賽限定</td></tr><tr><td>尸骸杰克</td><td>背心胸甲</td><td class="num">70</td><td>地圖 80 階起</td></tr><tr><td>披甲信仰</td><td>板甲</td><td class="num">70</td><td>地圖 40 階起</td></tr><tr><td>绞架步伐</td><td>鎖甲靴子</td><td class="num">70</td><td>聯賽限定</td></tr><tr><td>远古头骨</td><td>鎖甲頭盔</td><td class="num">70</td><td>地圖 60 階起</td></tr><tr><td>野兽之腹</td><td>鱗甲胸甲</td><td class="num">70</td><td>地圖 40 階起</td></tr><tr><td>饥渴容器</td><td>鎖甲胸甲</td><td class="num">70</td><td>聯賽限定、地圖 50 階起</td></tr><tr><td>马吉的慷慨仁慈（套装）</td><td>板靴</td><td class="num">70</td><td>地圖 60 階起</td></tr><tr><td>马吉的根基（套装）</td><td>板甲護脛</td><td class="num">70</td><td>地圖 80 階起</td></tr><tr><td>马吉的誓言（套装）</td><td>板甲</td><td class="num">70</td><td>地圖 80 階起</td></tr><tr><td>马吉的警觉（套装）</td><td>板甲頭盔</td><td class="num">70</td><td>地圖 60 階起</td></tr><tr><td>骨折夹板</td><td>鎖甲褲子</td><td class="num">70</td><td>聯賽限定</td></tr><tr><td>吉尔纳德，顺从诅咒</td><td>劍</td><td class="num">70</td><td>聯賽限定</td></tr><tr><td>埃格萨尔，混沌诅咒</td><td>匕首</td><td class="num">70</td><td>聯賽限定</td></tr><tr><td>奥尔梅尔，掠食诅咒</td><td>弓</td><td class="num">70</td><td>聯賽限定</td></tr><tr><td>姆乔尔尼尔</td><td>錘</td><td class="num">70</td><td>地圖 60 階起</td></tr><tr><td>安尼纳斯，厄运诅咒</td><td>斧</td><td class="num">70</td><td>聯賽限定</td></tr><tr><td>巴尔加曼，衰竭诅咒</td><td>錘</td><td class="num">70</td><td>聯賽限定</td></tr><tr><td>扎兹斯，不安亡者诅咒</td><td>鐮刀</td><td class="num">70</td><td>聯賽限定</td></tr><tr><td>拉尔格拉斯，遗忘诅咒</td><td>矛</td><td class="num">70</td><td>聯賽限定</td></tr><tr><td>曙光炽焰</td><td>長杖</td><td class="num">70</td><td>地圖 40 階起</td></tr><tr><td>特格雷斯，执迷诅咒</td><td>巨劍</td><td class="num">70</td><td>聯賽限定</td></tr><tr><td>祖尔格拉德，复仇诅咒</td><td>拳套</td><td class="num">70</td><td>聯賽限定</td></tr><tr><td>索格罗肯，沉默诅咒</td><td>長杖</td><td class="num">70</td><td>聯賽限定</td></tr><tr><td>马卡罗德，回响诅咒</td><td>弩</td><td class="num">70</td><td>聯賽限定</td></tr><tr><td>腺鼠疫之径</td><td>背心靴子</td><td class="num">80</td><td>地圖 80 階起</td></tr><tr><td>闪电线圈</td><td>鱗甲胸甲</td><td class="num">80</td><td>地圖 80 階起</td></tr><tr><td>鞭蛛</td><td>板甲</td><td class="num">80</td><td>地圖 40 階起</td></tr><tr><td>乔丹之石</td><td>戒指</td><td class="num">80</td><td>地圖 80 階起、好少掉</td></tr><tr><td>元素大转盘</td><td>戒指</td><td class="num">80</td><td>地圖 60 階起</td></tr><tr><td>拉奇亚塔的拥抱</td><td>項鍊</td><td class="num">80</td><td>聯賽限定、地圖 80 階起</td></tr><tr><td>新罪</td><td>戒指</td><td class="num">80</td><td>地圖 80 階起、好少掉</td></tr><tr><td>玛拉的万花筒</td><td>項鍊</td><td class="num">80</td><td>地圖 80 階起、好少掉</td></tr><tr><td>绝望教团</td><td>法典</td><td class="num">80</td><td>地圖 40 階起</td></tr><tr><td>伏特毒裂隙</td><td>弓</td><td class="num">80</td><td>地圖 60 階起</td></tr><tr><td>驭风暴者</td><td>斧</td><td class="num">80</td><td>地圖 60 階起</td></tr><tr><td>卡奥姆之心</td><td>板甲</td><td class="num">90</td><td>地圖 80 階起、好少掉</td></tr><tr><td>星云之鞋（套装）</td><td>布靴</td><td class="num">90</td><td>地圖 60 階起</td></tr><tr><td>星云兜帽（套装）</td><td>布帽</td><td class="num">90</td><td>地圖 60 階起</td></tr><tr><td>星云护腿（套装）</td><td>布褲</td><td class="num">90</td><td>地圖 80 階起</td></tr><tr><td>星云斗篷（套装）</td><td>布衣</td><td class="num">90</td><td>地圖 80 階起</td></tr><tr><td>末代追踪者兜帽（套装）</td><td>皮盔</td><td class="num">90</td><td>地圖 60 階起</td></tr><tr><td>末代追踪者护腿（套装）</td><td>皮褲</td><td class="num">90</td><td>地圖 80 階起</td></tr><tr><td>末代追踪者皮甲（套装）</td><td>皮甲</td><td class="num">90</td><td>地圖 80 階起</td></tr><tr><td>末代追踪者靴子（套装）</td><td>皮靴</td><td class="num">90</td><td>地圖 60 階起</td></tr><tr><td>源氏兜（套装）</td><td>板甲頭盔</td><td class="num">90</td><td>地圖 60 階起</td></tr><tr><td>源氏筒袴（套装）</td><td>板甲護脛</td><td class="num">90</td><td>地圖 80 階起</td></tr><tr><td>源氏胫当（套装）</td><td>板靴</td><td class="num">90</td><td>地圖 60 階起</td></tr><tr><td>源氏胴丸（套装）</td><td>板甲</td><td class="num">90</td><td>地圖 80 階起</td></tr><tr><td>昂达尔的智慧</td><td>長杖</td><td class="num">90</td><td>地圖 80 階起、好少掉</td></tr></tbody></table></div></div></details>
+  <h4 class="col">寶珠（唔分檔）</h4>
+  <div class="tablewrap">
+    <table class="price">
+      <thead><tr><th>檔</th><th>寶珠（遊戲內名）</th><th class="pc">每粒</th></tr></thead>
+      <tbody>
+        <tr><td class="tier"><span class="rar rar-common">普通</span></td><td>品质宝珠、密引宝珠</td><td class="pc"><span class="cn">1 綠寶石幣</span><span class="cu">1,000</span></td></tr>
+        <tr><td class="tier"><span class="rar rar-common">普通</span><span class="sub">工具</span></td><td>宝石提取工具、符文提取工具</td><td class="pc"><span class="cn">5 金幣</span><span class="cu">500</span></td></tr>
+        <tr><td class="tier"><span class="rar rar-uncommon">少见</span></td><td>新生宝珠、重生宝珠、失衡宝珠、重构宝珠、开孔宝珠、蜕凡宝珠、余烬宝珠、电击宝珠</td><td class="pc"><span class="cn">2 綠寶石幣</span> <span class="cn">5 金幣</span><span class="cu">2,500</span></td></tr>
+        <tr><td class="tier"><span class="rar rar-rare">珍稀</span></td><td>混沌宝珠、左旋重生宝珠、右旋重生宝珠、瑕疵宝珠、薄芒宝珠、先见宝珠、地图稀有度宝珠</td><td class="pc"><span class="cn">5 綠寶石幣</span><span class="cu">5,000</span></td></tr>
+        <tr><td class="tier"><span class="rar rar-epic">史诗</span></td><td>信念宝珠、西方密文宝珠、东方密文宝珠、混沌浸染宝珠、无谓乘危宝珠</td><td class="pc"><span class="cn">1 鑽石幣</span><span class="cu">10,000</span></td></tr>
+        <tr><td class="tier"><span class="rar rar-legendary">传说</span></td><td>内省宝珠、创世宝珠、知识宝珠、张力宝珠</td><td class="pc"><span class="cn">2 鑽石幣</span> <span class="cn">5 綠寶石幣</span><span class="cu">25,000</span></td></tr>
+        <tr><td class="tier"><span class="rar rar-mythic">神话</span></td><td>圣慈宝珠、火焰宝珠、启示宝珠、神秘宝珠</td><td class="pc"><span class="cn">5 鑽石幣</span><span class="cu">50,000</span></td></tr>
+        <tr><td class="tier" rowspan="3">改稀有度</td><td>色彩宝珠</td><td class="pc"><span class="cn">5 綠寶石幣</span><span class="cu">5,000</span></td></tr>
+        <tr><td>符文召唤宝珠</td><td class="pc"><span class="cn">3 鑽石幣</span><span class="cu">30,000</span></td></tr>
+        <tr><td>升阶宝珠</td><td class="pc"><span class="cn">1 下界合金幣</span><span class="cu">100,000</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small muted col">映照宝珠、无限宝珠、聯賽專用通貨、磨刀石同種子唔賣。每款寶珠詳細用法見 <a href="#items">08 · 寶珠、寶石同符文</a>。</p>
+  <details class="gloss"><summary>逐粒睇：35 款寶珠做咩用同價錢</summary><div class="gloss-body"><div class="tablewrap"><table class="price"><thead><tr><th>寶珠</th><th>用途</th><th class="pc">每粒</th></tr></thead><tbody><tr><td>品质宝珠<span class="en">Orb of Quality</span></td><td>品質 +1（品質要低過 20）。唔使潛能，有就用。</td><td class="pc"><span class="cn">1 綠寶石幣</span><span class="cu">1,000</span></td></tr><tr><td>密引宝珠<span class="en">Orb of Ciphers</span></td><td>詞綴種類唔變，只係重新擲數值。詞綴啱晒但數字低嗰陣用，平又多。</td><td class="pc"><span class="cn">1 綠寶石幣</span><span class="cu">1,000</span></td></tr><tr><td>宝石提取工具<span class="en">Gem Extractor</span></td><td>將裝備上最後鑲嗰粒寶石拆返出嚟，寶石唔會壞。</td><td class="pc"><span class="cn">5 金幣</span><span class="cu">500</span></td></tr><tr><td>符文提取工具<span class="en">Rune Extractor</span></td><td>將裝備上最後鑲嗰粒符文拆返出嚟；如果因此唔再夾到符文之語，符文之語會消失。</td><td class="pc"><span class="cn">5 金幣</span><span class="cu">500</span></td></tr><tr><td>新生宝珠<span class="en">Orb of New Beginnings</span></td><td>隨機揀一條詞綴重洗做新詞綴，其他唔變。用嚟救一件差少少就完美嘅裝備。</td><td class="pc"><span class="cn">2 綠寶石幣</span> <span class="cn">5 金幣</span><span class="cu">2,500</span></td></tr><tr><td>重生宝珠<span class="en">Orb of Rebirth</span></td><td>全部詞綴一次過重洗。成件裝備都唔啱用先好用，好壞全靠運氣。</td><td class="pc"><span class="cn">2 綠寶石幣</span> <span class="cn">5 金幣</span><span class="cu">2,500</span></td></tr><tr><td>失衡宝珠<span class="en">Orb of Imbalance</span></td><td>隨機一條詞綴升一級品階，數值重新擲。</td><td class="pc"><span class="cn">2 綠寶石幣</span> <span class="cn">5 金幣</span><span class="cu">2,500</span></td></tr><tr><td>重构宝珠<span class="en">Orb of Second Guessing</span></td><td>重洗裝備上面嘅注魔詞綴。</td><td class="pc"><span class="cn">2 綠寶石幣</span> <span class="cn">5 金幣</span><span class="cu">2,500</span></td></tr><tr><td>开孔宝珠<span class="en">Orb of Digging</span></td><td>幫裝備加一個孔，用嚟鑲寶石或者符文。</td><td class="pc"><span class="cn">2 綠寶石幣</span> <span class="cn">5 金幣</span><span class="cu">2,500</span></td></tr><tr><td>蜕凡宝珠<span class="en">Orb of Fledgling&#x27;s Reprieve</span></td><td>將一條普通品階嘅詞綴升一級。新裝備最平嘅升級方法。</td><td class="pc"><span class="cn">2 綠寶石幣</span> <span class="cn">5 金幣</span><span class="cu">2,500</span></td></tr><tr><td>余烬宝珠<span class="en">Orb of Ember</span></td><td>光環寶石稀有度升一級（只限普通或少見嘅寶石）。</td><td class="pc"><span class="cn">2 綠寶石幣</span> <span class="cn">5 金幣</span><span class="cu">2,500</span></td></tr><tr><td>电击宝珠<span class="en">Orb of Shock</span></td><td>輔助寶石稀有度升一級（只限普通或少見嘅寶石）。</td><td class="pc"><span class="cn">2 綠寶石幣</span> <span class="cn">5 金幣</span><span class="cu">2,500</span></td></tr><tr><td>混沌宝珠<span class="en">Orb of Chaos</span></td><td>75% 腐化裝備並加隨機腐化詞綴（之後改唔到），25% 物品消失。完成品先好賭。</td><td class="pc"><span class="cn">5 綠寶石幣</span><span class="cu">5,000</span></td></tr><tr><td>左旋重生宝珠<span class="en">Orb of Sinistral Rebirth</span></td><td>只係重洗全部前綴，後綴保留。後綴已經好、前綴差嗰陣用。</td><td class="pc"><span class="cn">5 綠寶石幣</span><span class="cu">5,000</span></td></tr><tr><td>右旋重生宝珠<span class="en">Orb of Dextral Rebirth</span></td><td>只係重洗全部後綴，前綴保留。前綴已經好、後綴差嗰陣用。</td><td class="pc"><span class="cn">5 綠寶石幣</span><span class="cu">5,000</span></td></tr><tr><td>瑕疵宝珠<span class="en">Orb of Imperfection</span></td><td>獨特裝備專用：獨特屬性 +5%（推近上限）。</td><td class="pc"><span class="cn">5 綠寶石幣</span><span class="cu">5,000</span></td></tr><tr><td>薄芒宝珠<span class="en">Orb of Glimmering Light</span></td><td>75% 將珠寶一條詞綴升一級品階，25% 珠寶消失。</td><td class="pc"><span class="cn">5 綠寶石幣</span><span class="cu">5,000</span></td></tr><tr><td>先见宝珠<span class="en">Orb of Foresight</span></td><td>75% 重洗預兆（Codex）嘅前綴，25% 預兆消失。</td><td class="pc"><span class="cn">5 綠寶石幣</span><span class="cu">5,000</span></td></tr><tr><td>地图稀有度宝珠<span class="en">Orb of Map Rarity</span></td><td>地牢地圖稀有度升一級（地圖要低過神話，而且地圖等級要夠新稀有度嘅最低等級）。</td><td class="pc"><span class="cn">5 綠寶石幣</span><span class="cu">5,000</span></td></tr><tr><td>信念宝珠<span class="en">Orb of Relief</span></td><td>將品階最低嗰條詞綴升一級，每件最多 5 次；要仲有史詩或以下品階嘅詞綴先用得。</td><td class="pc"><span class="cn">1 鑽石幣</span><span class="cu">10,000</span></td></tr><tr><td>西方密文宝珠<span class="en">Orb of Western Ciphers</span></td><td>只重新擲前綴嘅數值，種類唔變。</td><td class="pc"><span class="cn">1 鑽石幣</span><span class="cu">10,000</span></td></tr><tr><td>东方密文宝珠<span class="en">Orb of Eastern Ciphers</span></td><td>只重新擲後綴嘅數值，種類唔變。</td><td class="pc"><span class="cn">1 鑽石幣</span><span class="cu">10,000</span></td></tr><tr><td>混沌浸染宝珠<span class="en">Orb of Mesmerizing Chaos</span></td><td>75% 腐化珠寶（加腐化詞綴），25% 珠寶消失。</td><td class="pc"><span class="cn">1 鑽石幣</span><span class="cu">10,000</span></td></tr><tr><td>无谓乘危宝珠<span class="en">Orb of Foolish Risk</span></td><td>75% 將珠寶一條腐化詞綴升一級品階，25% 珠寶消失；腐化咗都用得。</td><td class="pc"><span class="cn">1 鑽石幣</span><span class="cu">10,000</span></td></tr><tr><td>内省宝珠<span class="en">Orb of Introspection</span></td><td>重新擲裝備本身基礎屬性（武器傷害、護甲之類）嘅數值，詞綴唔郁。</td><td class="pc"><span class="cn">2 鑽石幣</span> <span class="cn">5 綠寶石幣</span><span class="cu">25,000</span></td></tr><tr><td>创世宝珠<span class="en">Orb of Genesis</span></td><td>重新擲隱含詞綴嘅數值。</td><td class="pc"><span class="cn">2 鑽石幣</span> <span class="cn">5 綠寶石幣</span><span class="cu">25,000</span></td></tr><tr><td>知识宝珠<span class="en">Orb of Knowledge</span></td><td>預兆（Codex）稀有度隨機升高，每個最多 1 次。</td><td class="pc"><span class="cn">2 鑽石幣</span> <span class="cn">5 綠寶石幣</span><span class="cu">25,000</span></td></tr><tr><td>张力宝珠<span class="en">Orb of Tension</span></td><td>75% 重新擲輔助寶石數值，25% 寶石消失。</td><td class="pc"><span class="cn">2 鑽石幣</span> <span class="cn">5 綠寶石幣</span><span class="cu">25,000</span></td></tr><tr><td>圣慈宝珠<span class="en">Orb of Divine Benevolence</span></td><td>神話裝備專用：隨機一條詞綴重洗做神話品階嘅新詞綴，每件最多用 3 次。</td><td class="pc"><span class="cn">5 鑽石幣</span><span class="cu">50,000</span></td></tr><tr><td>火焰宝珠<span class="en">Orb of Flames</span></td><td>75% 重新擲光環寶石數值，25% 寶石消失。</td><td class="pc"><span class="cn">5 鑽石幣</span><span class="cu">50,000</span></td></tr><tr><td>启示宝珠<span class="en">Orb of Revelation</span></td><td>將隱含詞綴（裝備底子自帶嗰條）換成另一條可選嘅。</td><td class="pc"><span class="cn">5 鑽石幣</span><span class="cu">50,000</span></td></tr><tr><td>神秘宝珠<span class="en">Orb of Mystery</span></td><td>一定成功將珠寶一條詞綴升一級品階，每粒最多 3 次。</td><td class="pc"><span class="cn">5 鑽石幣</span><span class="cu">50,000</span></td></tr><tr><td>色彩宝珠<span class="en">Orb of Colors</span></td><td>普通裝備隨機變成更高稀有度。拎到一件底子靚嘅普通裝備第一步就用佢。</td><td class="pc"><span class="cn">5 綠寶石幣</span><span class="cu">5,000</span></td></tr><tr><td>符文召唤宝珠<span class="en">Orb of Runic Invocation</span></td><td>75% 將冇鑲嘢嘅普通裝備變成銘符並開孔（砌符文之語用），25% 物品消失。</td><td class="pc"><span class="cn">3 鑽石幣</span><span class="cu">30,000</span></td></tr><tr><td>升阶宝珠<span class="en">Orb of Ascension</span></td><td>裝備稀有度升一級（例如珍稀→史詩），會加詞綴。已經係神話、獨特或銘符就用唔到。</td><td class="pc"><span class="cn">1 下界合金幣</span><span class="cu">100,000</span></td></tr></tbody></table></div></div></details>
+  <h4 class="col">符文（唔分檔）</h4>
+  <div class="tablewrap">
+    <table class="price">
+      <thead><tr><th>檔</th><th>符文</th><th class="pc">每粒</th></tr></thead>
+      <tbody>
+        <tr><td class="tier">普通</td><td>Ita、Mos、Nos、Cen、Dos、Ano、Fey</td><td class="pc"><span class="cn">5 金幣</span><span class="cu">500</span></td></tr>
+        <tr><td class="tier">中級</td><td>Har、Toq、Eno、Xer</td><td class="pc"><span class="cn">1 綠寶石幣</span><span class="cu">1,000</span></td></tr>
+        <tr><td class="tier" rowspan="4">高級</td><td>Oru</td><td class="pc"><span class="cn">2 綠寶石幣</span><span class="cu">2,000</span></td></tr>
+        <tr><td>Wir</td><td class="pc"><span class="cn">5 綠寶石幣</span><span class="cu">5,000</span></td></tr>
+        <tr><td>Ven</td><td class="pc"><span class="cn">1 鑽石幣</span><span class="cu">10,000</span></td></tr>
+        <tr><td>Yun</td><td class="pc"><span class="cn">2 鑽石幣</span><span class="cu">20,000</span></td></tr>
+        <tr><td class="tier" rowspan="5">特殊</td><td>Owd</td><td class="pc"><span class="cn">2 綠寶石幣</span><span class="cu">2,000</span></td></tr>
+        <tr><td>Net</td><td class="pc"><span class="cn">3 綠寶石幣</span><span class="cu">3,000</span></td></tr>
+        <tr><td>Und</td><td class="pc"><span class="cn">5 綠寶石幣</span><span class="cu">5,000</span></td></tr>
+        <tr><td>布里（Bri）、Daw</td><td class="pc"><span class="cn">1 鑽石幣</span><span class="cu">10,000</span></td></tr>
+        <tr><td>End、Sid</td><td class="pc"><span class="cn">2 鑽石幣</span><span class="cu">20,000</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small muted col">「特殊」嗰 7 粒平時只係 Boss 同 Act 傳送門（gateway）先掉。遊戲入面叫「Ita 符文」咁。符文之語要邊幾粒，見 <a href="#items">08 · 寶珠、寶石同符文</a>。</p>
+</section>
+
 <section id="worlds">
-  <header class="ban"><img src="img/sec-world.webp" width="1440" height="480" alt="" loading="lazy" decoding="async"><div class="ban-txt"><p class="label">10 · 世界</p><h2>點樣去其他世界</h2></div></header>
+  <header class="ban"><img src="img/sec-world.webp" width="1440" height="480" alt="" loading="lazy" decoding="async"><div class="ban-txt"><p class="label">11 · 世界</p><h2>點樣去其他世界</h2></div></header>
   <p class="lead col">新手城廣場已經砌好 5 個傳送門框：北面有下界、深园、永昼、恒晓，東面有深淵。每個門前有牌講點樣點火，帶齊點火道具撳一下就得。</p>
   <div class="tablewrap">
     <table>
@@ -1745,7 +1959,7 @@ footer { display: grid; gap: 8px; font-size: var(--step--1); color: var(--muted)
 </section>
 
 <section id="town">
-  <header class="ban"><img src="img/sec-town.webp" width="1440" height="480" alt="" loading="lazy" decoding="async"><div class="ban-txt"><p class="label">11 · 新手城</p><h2>新手城同點樣返城</h2></div></header>
+  <header class="ban"><img src="img/sec-town.webp" width="1440" height="480" alt="" loading="lazy" decoding="async"><div class="ban-txt"><p class="label">12 · 新手城</p><h2>新手城同點樣返城</h2></div></header>
   <div class="mapwrap">
     <div class="mapbox short" id="townmap" role="region" aria-label="新手城互動地圖"></div>
     <p class="mapnote">滑鼠滾輪放大縮細，拖動移動（手機用兩隻手指）。放大少少就會見到每座建築嘅名，右下角係滑鼠位置嘅遊戲座標。</p>
@@ -1771,7 +1985,7 @@ footer { display: grid; gap: 8px; font-size: var(--step--1); color: var(--muted)
         <li>床或者重生錨可以改你嘅重生點。</li>
         <li><strong>传送石碑（Waystone）</strong>：右鍵「發現」咗之後，就可以由任何一個石碑傳去另一個。村入面成日都有。</li>
         <li><strong>廣場出生點東邊有個传送石碑，叫「新手城」</strong>（X 3493 Z 6460）。第一次入 server 記得右鍵佢一下登記。出去探索完，喺任何石碑或者用传送石都可以傳返嚟。</li>
-        <li>石碑之間傳送<strong>唔使經驗</strong>。要由其他世界直接傳返嚟，「新手城」石碑要設成<strong>全域（Global）</strong>。</li>
+        <li>石碑之間傳送<strong>唔使經驗</strong>，但每次收少少銅幣：每 100 格 1 個，最多 10 個。要由其他世界直接傳返嚟，「新手城」石碑要設成<strong>全域（Global）</strong>。</li>
         <li><strong>副本同村莊旁邊會自動出石碑</strong>：你第一次行到一個副本或者村莊附近，而附近又未有石碑，server 就會喺結構外面放一個，名叫「副本名·方向距離」，例如「被感染神殿·南780」，並且幫附近嘅人自動登記。地底副本要入到去先會觸發，石碑放喺地面，要自己撳一下佢。呢啲石碑拆唔到。</li>
         <li>打 <code>/wstarget</code>：列出離你最近、你未登記嘅 3 個石碑，有方向、距離同座標。撳「[Add]」就可以加入 Xaero 小地圖做路標。<code>/wstarget all</code> 會數吓 3000 格內仲有幾多個未登記。登記咗嘅石碑，Xaero 小地圖本身就會顯示。</li>
         <li>下面副本地圖嘅 ◆ 係附近全部石碑嘅位置，可以用嚟計劃探索路線。</li>
@@ -1783,7 +1997,7 @@ footer { display: grid; gap: 8px; font-size: var(--step--1); color: var(--muted)
 </section>
 
 <section id="dungeons">
-  <header><p class="label">12 · 副本</p><h2>新手城附近嘅副本</h2></header>
+  <header><p class="label">13 · 副本</p><h2>新手城附近嘅副本</h2></header>
   <p class="lead col">廣場南邊有塊<strong>副本告示板</strong>，寫晒座標。地圖上嘅號碼同列表一樣。座標用 <kbd>F3</kbd> 睇，或者撳 <kbd>M</kbd> 開地圖。</p>
   <div class="mapwrap">
     <div class="mapbox" id="dmap" role="region" aria-label="副本互動地圖"></div>
@@ -1832,7 +2046,7 @@ footer { display: grid; gap: 8px; font-size: var(--step--1); color: var(--muted)
 </section>
 
 <section id="death">
-  <header class="ban"><img src="img/sec-danger.webp" width="1440" height="480" alt="" loading="lazy" decoding="async"><div class="ban-txt"><p class="label">13 · 死亡</p><h2>死亡同常見伏位</h2></div></header>
+  <header class="ban"><img src="img/sec-danger.webp" width="1440" height="480" alt="" loading="lazy" decoding="async"><div class="ban-txt"><p class="label">14 · 死亡</p><h2>死亡同常見伏位</h2></div></header>
   <ul class="tight col">
     <li><strong>死咗唔會跌裝備同背包</strong>（keepInventory 開咗）。</li>
     <li>50 級或以下死冇懲罰；51 級起每次死扣大約 5% 升級所需經驗，同埋扣 500 恩宠值。</li>
@@ -1844,7 +2058,7 @@ footer { display: grid; gap: 8px; font-size: var(--step--1); color: var(--muted)
 </section>
 
 <section id="party">
-  <header class="ban"><img src="img/sec-party.webp" width="1440" height="480" alt="" loading="lazy" decoding="async"><div class="ban-txt"><p class="label">14 · 組隊</p><h2>點樣同朋友組隊</h2></div></header>
+  <header class="ban"><img src="img/sec-party.webp" width="1440" height="480" alt="" loading="lazy" decoding="async"><div class="ban-txt"><p class="label">15 · 組隊</p><h2>點樣同朋友組隊</h2></div></header>
   <ul class="tight col">
     <li>開背包，撳<strong>左上角「我的团队」</strong>掣 → 建立隊伍 → 邀請朋友。指令建隊用唔到。</li>
     <li>隊友要喺 <span class="data">100</span> 格內先計：經驗先加 <span class="data">100%</span> 再平分，掉落多 <span class="data">25%</span>。</li>
@@ -1856,7 +2070,7 @@ footer { display: grid; gap: 8px; font-size: var(--step--1); color: var(--muted)
 </section>
 
 <section id="faq">
-  <header><p class="label">15 · 常見問題</p><h2>常見問題</h2></header>
+  <header><p class="label">16 · 常見問題</p><h2>常見問題</h2></header>
   <div class="tablewrap">
     <table>
       <thead><tr><th>情況</th><th>點做</th></tr></thead>
@@ -1872,6 +2086,7 @@ footer { display: grid; gap: 8px; font-size: var(--step--1); color: var(--muted)
         <tr><td>職業技能、天賦仲係英文</td><td>未裝 <code>CtE2-skills-zh_cn.zip</code>，或者冇喺資源包度揀咗佢。見「轉做中文」第 5、6 步。</td></tr>
         <tr><td>中文冇晒 / 一半英文</td><td>確認語言係简体中文，同埋資源包「CtE2-BBSMC-zh_cn」喺右邊最頂，再完全重開遊戲。</td></tr>
         <tr><td>迷路</td><td><kbd>M</kbd> 開地圖，<kbd>F3</kbd> 睇座標。新手城出生點係 X 3488 Z 6460。</td></tr>
+        <tr><td>錢幣點賺、有咩用</td><td>見<a href="#shop">「10 · 錢幣同商店」</a>：打怪掉幾多、任務獎勵、傳送同合成收費，同埋商店價錢。</td></tr>
         <tr><td>死咗會唔會跌嘢</td><td>唔會。51 級起先會扣少少經驗。</td></tr>
       </tbody>
     </table>
@@ -1879,7 +2094,7 @@ footer { display: grid; gap: 8px; font-size: var(--step--1); color: var(--muted)
 </section>
 
 <section id="keys">
-  <header><p class="label">16 · 按鍵</p><h2>常用按鍵</h2></header>
+  <header><p class="label">17 · 按鍵</p><h2>常用按鍵</h2></header>
   <div class="keys">
     <div><span>快捷輪盤 / 主枢纽（快速㩒）</span><kbd>H</kbd></div>
     <div><span>任務書</span><kbd>U</kbd></div>
