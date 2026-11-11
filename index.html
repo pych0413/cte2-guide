@@ -1245,16 +1245,17 @@ details.b2-more > summary::-webkit-details-marker { display: none; }
   <p class="warn col"><strong>冇裝入唔到伺服器。</strong>CurseForge 叫你更新 modpack 唔好㩒。</p>
   <p class="col"><strong>下載：</strong><a href="https://drive.google.com/drive/folders/1VwgUlmLdEO7SVa7lC0itkCUAfnOi-upi?usp=drive_link" target="_blank" rel="noopener">Google Drive</a> 入面嘅 <code>CtE2-friends-all-in-one-r12v6.zip</code>（2 個 mod ＋ 全部中文，一個檔裝晒）。之後每次更新要用嘅 mod 同資料包都會放喺呢度，更新後入唔到就返嚟攞最新嘅。</p>
   <ol class="steps col">
+    <li><strong>下載成個 zip：</strong>喺 Drive 對住 <code>CtE2-friends-all-in-one-r12v6.zip</code> 右鍵 › 下載，落到嘅應該係一個約 32 MB 嘅 zip。唔好撳入去再下載入面嘅資料夾，咁樣只會落到一部分。</li>
     <li><strong>打開資料夾：</strong>CurseForge › My Modpacks › 撳 Craft to Exile 2 › 右上角 ⋮（三點）› Open Folder。通常係 <code>C:\Users\你個名\curseforge\minecraft\Instances\Craft to Exile 2</code>。Prism：揀個實例 › Folder › Minecraft folder。</li>
     <li><strong>解壓個 zip：</strong>將入面 5 個資料夾 <code>mods</code>、<code>config</code>、<code>kubejs</code>、<code>patchouli_books</code>、<code>resourcepacks</code> 全部拖入 Open Folder 嗰層，問到就揀「全部取代」。</li>
     <li><strong>入遊戲：</strong>選項 › 語言 › 简体中文；選項 › 資源包：將 <code>CtE2-BBSMC-zh_cn</code> 移去右邊，拉到最頂。</li>
     <li>入到世界撳 <kbd>F3</kbd>+<kbd>T</kbd>。</li>
   </ol>
   <ul class="tight col">
-    <li><strong>想快啲：</strong>關閉 Minecraft，撳兩下 zip 入面嘅 <code>Install.bat</code>，佢會自動做晒上面 4 步。Windows 封鎖咗唔畀開，就照上面手動做。</li>
     <li>CurseForge 可能話你改過個整合包，唔使理。</li>
     <li>唔好喺 CurseForge 入面搜尋嚟裝 mod，版本要一模一樣。</li>
   </ul>
+  <p class="small muted col">解壓後得個空資料夾：對住個 zip 右鍵 › 內容 › 剔「解除封鎖」› 確定，再解壓；或者改用 7-Zip、WinRAR 解壓。</p>
   <p class="small muted col">入唔到（話 mod 唔 match、channel 唔 match、missing registry）：檢查兩個 mod 有冇開、版本啱唔啱。Prism 用戶一樣，將 jar 放入實例嘅 <code>mods</code> folder。</p>
   <p class="small muted col">中文包只啱 2.1.4。翻譯來自 BBSMC 漢化組同 CFPA 社區（非商業用途），技能同天賦係我哋自己補翻。</p>
   <p class="note col"><strong>Server 有白名單。</strong>第一次入之前，將你嘅 Minecraft 名 send 畀 R1suuu 加你入去。</p>
@@ -2041,6 +2042,91 @@ details.b2-more > summary::-webkit-details-marker { display: none; }
     <div class="lk-bar"><p class="lk-count" id="lk-items-count" aria-live="polite"></p><button type="button" class="btn" id="lk-items-reset">清除篩選</button></div>
     <div class="lk-list" id="lk-items-list" role="tabpanel" aria-labelledby="lkt-orbs"><noscript><p class="lk-empty">查詢表要開 JavaScript 先用到。</p></noscript></div>
   </div>
+  <h3 class="col" id="jewels">珠寶同腐化詞綴</h3>
+  <p class="col">珠寶鑲入天賦樹嘅珠寶位。用「混沌浸染宝珠」可以將珠寶腐化，加上腐化詞綴。下面列嘅係每條嘅最高數值。</p>
+  <details class="gloss col"><summary>珠寶腐化詞綴（17 條）</summary><div class="gloss-body">
+    <ul class="tight">
+      <li>充能恢复速度 +6</li>
+      <li>光环容量 +10</li>
+      <li>光环效果 +5</li>
+      <li>免疫「伤口」；生命值 提高 10%</li>
+      <li>免疫「元素易伤」；魔力值 提高 10%</li>
+      <li>免疫「无力」；能量值 提高 12.5%</li>
+      <li>免疫「混沌诅咒」；魔法护盾 提高 10%</li>
+      <li>免疫「肉身摧残」；能量值 提高 12.5%</li>
+      <li>技能速度 +18</li>
+      <li>攻击速度 +15；移动速度 +5</li>
+      <li>施法速度 +30</li>
+      <li>暴击伤害 +10</li>
+      <li>暴击几率 提高 20%</li>
+      <li>最大冰霜抗性 +3</li>
+      <li>最大火焰抗性 +3</li>
+      <li>最大雷电抗性 +3</li>
+      <li>魔法掉落 +10；物品掉落 +5</li>
+    </ul>
+  </div></details>
+  <details class="gloss col"><summary>腐化可以免疫嘅 5 種負面效果</summary><div class="gloss-body">
+    <ul class="tight">
+      <li><strong>混沌诅咒</strong>（詛咒）：生命值再生總減 25–50%、混沌抗性 −10 至 −20、移动速度 −30。</li>
+      <li><strong>肉身摧残</strong>（詛咒）：护甲值總減 20–40%、精准度總減 25–50%。</li>
+      <li><strong>元素易伤</strong>（詛咒）：魔力值再生總減 25–50%、元素抗性 −15 至 −30。</li>
+      <li><strong>无力</strong>：攻击速度 −25、移动速度 −25。</li>
+      <li><strong>伤口</strong>：遭受流血几率 +15、流血抗性 −20。</li>
+    </ul>
+  </div></details>
+  <details class="gloss col"><summary>裝備腐化詞綴（48 條）</summary><div class="gloss-body">
+    <p class="small muted">部分只會出喺特定部位。</p>
+    <ul class="tight">
+      <li>中毒几率 +10；中毒伤害 +10</li>
+      <li>充能恢复速度 +10</li>
+      <li>光环容量 +10</li>
+      <li>光环效果 +3</li>
+      <li>冰霜伤害 +5</li>
+      <li>冰霜抗性 +20</li>
+      <li>冻结几率 +10；冻结伤害 +10</li>
+      <li>力量 +3</li>
+      <li>召唤伤害 +8</li>
+      <li>所有图腾法术等级 +1；图腾标签法术伤害 +4</li>
+      <li>所有法术等级 +2</li>
+      <li>所有陷阱法术等级 +1；陷阱标签法术伤害 +4</li>
+      <li>技能速度 +15</li>
+      <li>护甲值 +4</li>
+      <li>按攻击速度减武器技能冷却 +20</li>
+      <li>按格挡几率加技能伤害 +25</li>
+      <li>按魔力值加魔法护盾 +5</li>
+      <li>攻击速度 +30</li>
+      <li>施法速度 +24</li>
+      <li>智力 +3</li>
+      <li>暴击伤害 +15</li>
+      <li>暴击几率 +2</li>
+      <li>最大冰霜抗性 +3</li>
+      <li>最大暴击充能层数 +1</li>
+      <li>最大火焰抗性 +3</li>
+      <li>最大狂怒充能层数 +1</li>
+      <li>最大耐力充能层数 +1</li>
+      <li>最大雷电抗性 +3</li>
+      <li>流血几率 +10；流血伤害 +10</li>
+      <li>混沌伤害 +5</li>
+      <li>火焰伤害 +5</li>
+      <li>火焰抗性 +20</li>
+      <li>灵巧 +3</li>
+      <li>灼烧几率 +10；灼烧伤害 +10</li>
+      <li>物品掉落 +10</li>
+      <li>物理伤害 +5</li>
+      <li>物理伤害转化为额外冰霜伤害 +15；冰霜伤害 +5</li>
+      <li>物理伤害转化为额外混沌伤害 +15；混沌伤害 +5</li>
+      <li>物理伤害转化为额外火焰伤害 +15；火焰伤害 +5</li>
+      <li>物理伤害转化为额外雷电伤害 +15；雷电伤害 +5</li>
+      <li>物理抗性 +3</li>
+      <li>电击几率 +10；电击伤害 +10</li>
+      <li>经验获取 +5</li>
+      <li>闪避值 +4</li>
+      <li>雷电伤害 +5</li>
+      <li>雷电抗性 +20</li>
+      <li>魔法护盾 +4</li>
+      <li>魔法掉落 +15</li>
+    </ul>
+  </div></details>
 </section>
 
 <section id="uniques">
