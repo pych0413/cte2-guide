@@ -1083,7 +1083,7 @@ table.dr-sk td:last-child { min-width: 8em; }
 
 </style>
 <script>/* old bookmarks: an id that moved to the other page forwards there, hash kept */
-(function(){var m={"' + id + '-ws":1,"asc":1,"classes":1,"death":1,"dmap":1,"dr-cap":1,"dr-eggs":1,"dr-gift":1,"dr-panel":1,"dr-raise":1,"dr-ride":1,"dr-size":1,"dr-trade":1,"dragons":1,"duel":1,"duel-card":1,"duel-live":1,"dungeons":1,"faq":1,"join":1,"join-auto":1,"join-mods":1,"keys":1,"levels":1,"news":1,"news-list":1,"party":1,"points":1,"route":1,"shop":1,"shop-coins":1,"shop-earn":1,"shop-junk-next":1,"shop-spend":1,"start":1,"tier-bosses":1,"town":1,"town-open":1,"townmap":1,"wb-bosses":1,"wb-faq":1,"wb-giant":1,"wb-lich":1,"wb-list":1,"wb-r-cap":1,"wb-r-cheat":1,"wb-r-level":1,"wb-r-prep":1,"wb-r-soak":1,"wb-r-solo":1,"wb-rules":1,"wb-time":1,"wb-wrought":1,"wboss":1,"wild-dragons":1,"wild-fight":1,"wild-find":1,"worlds":1},h=location.hash.slice(1);try{h=decodeURIComponent(h)}catch(e){}if(h&&m[h]===1)location.replace("index.html"+location.hash)})();</script>
+(function(){var m={"asc":1,"classes":1,"classup":1,"classup-targets":1,"death":1,"dmap":1,"dr-cap":1,"dr-eggs":1,"dr-gift":1,"dr-panel":1,"dr-raise":1,"dr-ride":1,"dr-size":1,"dr-trade":1,"dragons":1,"duel":1,"duel-card":1,"duel-live":1,"dungeons":1,"faq":1,"join":1,"join-auto":1,"join-mods":1,"keys":1,"levels":1,"news":1,"news-list":1,"party":1,"points":1,"route":1,"shop":1,"shop-coins":1,"shop-earn":1,"shop-junk-next":1,"shop-spend":1,"start":1,"tier-bosses":1,"town":1,"town-open":1,"townmap":1,"wb-bosses":1,"wb-faq":1,"wb-giant":1,"wb-lich":1,"wb-list":1,"wb-r-cap":1,"wb-r-cheat":1,"wb-r-level":1,"wb-r-prep":1,"wb-r-soak":1,"wb-r-solo":1,"wb-rules":1,"wb-time":1,"wb-wrought":1,"wboss":1,"wild-dragons":1,"wild-fight":1,"wild-find":1,"worlds":1},h=location.hash.slice(1);try{h=decodeURIComponent(h)}catch(e){}if(h&&m[h]===1)location.replace("index.html"+location.hash)})();</script>
 </head>
 <body><div class="shell">
 <div class="dock" id="dock" hidden>
@@ -1829,6 +1829,7 @@ table.dr-sk td:last-child { min-width: 8em; }
   <header><p class="label">寶珠</p><h2>寶珠、寶石同符文</h2></header>
   <p class="lead col">寶珠用嚟改裝備；寶石同符文鑲落孔度；幾粒符文按次序鑲啱就變「符文之語」。82 款寶珠同其他通貨、9 種寶石、22 粒符文、59 個符文之語，全部喺下面查。</p>
   <p class="col">名係簡體（遊戲入面嘅名）；搜尋打簡體、繁體或英文都得。撳任何一行睇詳細同喺邊度攞。</p>
+  <noscript><p class="note col">查詢表要開 JavaScript 先見到全部內容。</p></noscript>
   <div class="lk" id="lk-items">
     <div class="lk-tabs" role="tablist" aria-label="物品種類"><button type="button" role="tab" class="lk-tab" id="lkt-orbs" data-tab="orbs" aria-selected="true" aria-controls="lk-items-list" tabindex="0">寶珠<span class="c">82</span></button><button type="button" role="tab" class="lk-tab" id="lkt-gems" data-tab="gems" aria-selected="false" aria-controls="lk-items-list" tabindex="-1">寶石<span class="c">9</span></button><button type="button" role="tab" class="lk-tab" id="lkt-runes" data-tab="runes" aria-selected="false" aria-controls="lk-items-list" tabindex="-1">符文<span class="c">22</span></button><button type="button" role="tab" class="lk-tab" id="lkt-runewords" data-tab="runewords" aria-selected="false" aria-controls="lk-items-list" tabindex="-1">符文之語<span class="c">59</span></button></div>
     <p class="lk-intro col" data-tab="orbs">寶珠（遊戲入面叫「通貨」）係改裝備嘅消耗品：喺背包拎起寶珠，撳落件裝備度用。「詞綴」係裝備上嘅隨機屬性，分前綴、後綴，每條有品階（普通到神話），品階越高數值越大；「隱含詞綴」係底子自帶嗰條。「潛能」係每件裝備改造嘅額度（普通 75、少見 100、珍稀 125、史詩 150、傳說 175、神話 200、獨特 50、銘符 50），大部分寶珠用一次扣一啲，扣晒就改唔到；寶石同符文唔扣。「腐化」之後件裝備定型，寶珠都用唔到（只可以再鑲嘢）。「鏡像」係映照宝珠複製出嚟嘅版本，一樣唔可以再改。有啲寶珠會失敗（令物品消失或者腐化），用之前睇清成功率。</p><p class="lk-intro col" data-tab="gems" hidden>呢度係鑲落裝備孔入面嘅寶石（唔係技能／輔助寶石），拎起撳落有空孔嘅裝備就鑲到。共 9 種，每種 8 階，唔扣潛能，可以用宝石提取工具拆返出嚟。普通到神話同獨特裝備最多鑲 10 粒（實際受孔數限制），銘符裝備唔可以鑲寶石。寶石數值固定，唔會隨裝備等級變。</p><p class="lk-intro col" data-tab="runes" hidden>符文都係鑲落孔度，單粒已有效果（數值喺範圍內隨機，再鑲同款會重擲）。普通到神話裝備最多鑲 2 粒、獨特 1 粒、銘符 8 粒。按指定次序將幾粒符文鑲落一件銘符（Runed）裝備，就變出「符文之語」（見下一節）。鑲錯可以用符文提取工具拆，但扣 1 點潛能。標住「隨裝備等級放大」嘅固定數值（生命、魔力、護甲等）乘數：1 級 ×1、50 級 ×10.8、100 級 ×20.8；力量、靈巧、智力等「小幅放大」：1 級 ×1、50 級 ×3.45、100 級 ×5.95。</p><p class="lk-intro col" data-tab="runewords" hidden>符文之語係固定嘅符文組合：件裝備要係銘符（Runed）稀有度（2~6 個孔），按列出次序連住鑲啱晒符文，就額外得到一組強力屬性。部位要啱先得；幾個組合都夾到，揀符文最多嗰個。符文召唤宝珠可以將普通裝備變成銘符。</p>
@@ -1929,6 +1930,7 @@ table.dr-sk td:last-child { min-width: 8em; }
 <section id="uniques" data-cat="uniques">
   <header><p class="label">獨特裝備</p><h2>獨特裝備查詢表</h2></header>
   <p class="lead col">獨特裝備（紅色名，稀有度叫「独特」）每件有一組固定嘅「独特属性」，數值喺範圍內隨機抽，撿兩次數字可以唔同。掉落按權重抽，要夠等級；有啲要喺高等階地圖（地图装置）先會掉。</p>
+  <noscript><p class="note col">呢個查詢表要開 JavaScript 先見到全部獨特裝備。</p></noscript>
   <details class="gloss col"><summary>名詞解釋：詞綴、潛能、腐化、鏡像，同埋 ＊ 同「總增」點睇</summary><div class="gloss-body"><ul class="tight col"><li>詞綴（词缀）：裝備上嘅隨機屬性。普通裝靠詞綴，獨特裝主要靠独特属性。</li><li>潛能（潜能）：改造額度，用一粒寶珠扣一次，扣晒就改唔到（寶石、符文唔扣）。獨特裝有 50 點；瑕疵宝珠可將独特属性提高 5%，每粒扣 15 點。</li><li>腐化：用混沌宝珠之類，有機會加強，但混沌宝珠有 25% 機會直接整爛件裝備；腐化咗就唔可以再用寶珠改，只可以鑲寶石。</li><li>鏡像：映照宝珠複製出嚟嘅一件，同樣唔可以再改。</li></ul><p class="col">數值後面有 ＊ 嘅係基礎值，會隨件裝備等級放大。「總增／總減」（遊戲寫再增长／再降低）係乘算，通常比普通「提高」更有份量。</p></div></details>
   <div class="utip">
     <div class="mctip" role="img" aria-label="遊戲入面獨特裝備說明框示意圖：最頂係基礎屬性，跟住藍色隐藏属性，再落係黃色独特属性"><p class="nm">放血刀</p><p class="bs"><b><span class="gd">●</span>武器伤害:</b> 10</p><p class="bs"><b><span class="gd">●</span>基础击中时获得资源:</b> 6</p><p class="hd-imp">隐藏属性：</p><p class="ln"><span class="n">+5</span> 精准度</p><p class="hd-uni">独特属性：</p><p class="ln"><span class="n">+16.25%</span> 装备武器伤害</p><p class="ln"><span class="n">+20%</span> 攻击速度</p><p class="ln"><span class="n">+6%</span> 生命偷取</p><p class="ln"><span class="n">+15%</span> 流血几率</p><p class="ln"><span class="n">+3</span> 能量值再生</p><p class="rar">独特物品</p><span class="cap">示意：用「放血刀」做例子，數字係隨便揀嘅，每件都唔同。</span></div>
@@ -2892,7 +2894,7 @@ table.dr-sk td:last-child { min-width: 8em; }
   if (gsBox) {
     const gq = $("#gs-q"), gCnt = $("#gs-count"), gNone = $("#gs-none"), gChips = $$("#gs-chips .fchip");
     const gSecs = $$("section[data-cat]");
-    const UNIT = "details.build, details.v4card, tbody > tr, .kw > button";
+    const UNIT = "details.build, details.v4card, tbody > tr, .kw > button, ul.v5sks > li, #wboss-db li, #wboss-db p.col";
     const LK = { items: ["#lk-items-q", "#lk-items-count"], uniques: ["#lk-u-q", "#lk-u-count"] };
     const off = (el, v) => el.classList.toggle("gs-off", !!v);
     let gBuilt = false, gCat = "", gPushed = false, gTimer = 0, gTimer2 = 0;
@@ -2903,6 +2905,7 @@ table.dr-sk td:last-child { min-width: 8em; }
       gSecs.forEach(sec => {
         const rec = { el: sec, cat: sec.dataset.cat, units: [], blocks: [], groups: $$(".bgroup", sec), lk: LK[sec.id] || null };
         let c3 = null, c4 = null, t3 = "", t4 = "";
+        const st = sec.dataset.cat === "boss" ? ((sec.querySelector("header") || {}).textContent || "") : "";
         Array.from(sec.children).forEach(ch => {
           if (ch.tagName === "H3") { t3 = ch.textContent; t4 = ""; c3 = { els: [ch], units: [] }; c4 = null; rec.blocks.push(c3); }
           else if (ch.tagName === "H4") { t4 = ch.textContent; c4 = { els: [ch], units: [] }; if (c3) c3.els.push(ch); rec.blocks.push(c4); }
@@ -2910,7 +2913,7 @@ table.dr-sk td:last-child { min-width: 8em; }
           const us = ch.matches(UNIT) ? [ch] : $$(UNIT, ch);
           us.forEach(el => {
             if (el.parentElement.closest("details.build, details.v4card, #lk-items, #lk-u")) return;
-            const u = { el, hay: null, ctx: t3 + " " + t4 };
+            const u = { el, hay: null, ctx: st + " " + t3 + " " + t4 };
             rec.units.push(u);
             if (c3) c3.units.push(u);
             if (c4) c4.units.push(u);
