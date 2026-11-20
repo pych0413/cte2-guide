@@ -1576,7 +1576,7 @@ a.row:active, a.step:active { background: var(--panel-2); }
     <details class="fold" data-sub="scale"><summary>召喚獸變大 <small>只係個樣</small></summary><div class="fold-body" id="ul-scale"></div></details>
     <details class="fold" data-sub="apex"><summary>全服最稀有 <small>3 件</small></summary><div class="fold-body" id="ul-apex"></div></details>
   </div>
-  <p class="muted u-foot">條長 = 冷卻，滿條 150 秒。冷卻固定，減冷卻冇用（时光回溯除外）。</p>
+  <p class="muted u-foot">五維圖由頂順時針：單體、範圍、控場、輔助、頻率（幾耐用得一次）。冷卻固定，減冷卻冇用（时光回溯除外）。</p>
 
   <style>
     #scr-db-ults [hidden] { display: none !important; }
@@ -1584,6 +1584,11 @@ a.row:active, a.step:active { background: var(--panel-2); }
     #scr-db-ults .u-sticky { position: sticky; top: calc(52px + env(safe-area-inset-top, 0px)); z-index: 15; margin: -12px calc(-1 * var(--gr)) 0 calc(-1 * var(--gl)); padding: 8px var(--gr) 8px var(--gl); background: var(--page); border-bottom: 2px solid #000; }
     #scr-db-ults .u-sticky + * { margin-top: 12px; }
     #scr-db-ults .u-art { display: block; width: 100%; height: 100%; background: #0c0d10 center/cover no-repeat; image-rendering: auto; }
+    #scr-db-ults .u-mini { flex: none; width: 52px; height: 52px; }
+    #scr-db-ults .u-mini .g { fill: none; stroke: #6b6f7c; stroke-width: .9; }
+    #scr-db-ults .u-mini .v { fill: rgba(255,200,72,.45); stroke: #ffc848; stroke-width: 1.6; stroke-linejoin: round; }
+    #scr-db-ults .u-row .slot { width: 48px; height: 48px; }
+    #scr-db-ults .u-row .u-n .chip { height: 22px; padding: 0 5px; font-size: 13px; }
     #scr-db-ults .u-fig { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
     #scr-db-ults .u-pic { flex: none; width: 46%; max-width: 200px; aspect-ratio: 1/1; border: 2px solid #000; background: #0c0d10 center/cover no-repeat; }
     #scr-db-ults .u-rad { flex: 1; min-width: 0; max-width: 220px; height: auto; }
@@ -1684,6 +1689,15 @@ a.row:active, a.step:active { background: var(--panel-2); }
     AXL.forEach(function (x, i) { var q = pt(i, R), l = pt(i, R + 15); h += '<line class="g" x1="' + c + '" y1="' + c + '" x2="' + q[0].toFixed(1) + '" y2="' + q[1].toFixed(1) + '"/><text x="' + l[0].toFixed(1) + '" y="' + (l[1] + 4).toFixed(1) + '" text-anchor="middle">' + x[1] + " " + a[x[0]] + '</text>'; });
     return h + '<polygon class="v" points="' + poly(function (x) { return R * a[x[0]] / 5; }) + '"/></svg>';
   };
+  var chipRow = function (r) { return r.apex || /全服/.test(r.rarity_chip) ? '<span class="chip r-mythic">最稀有</span>' : '<span class="chip r-unique">超稀有</span>'; };
+  var mini = function (r) {
+    var a = r.axes; if (!a) return "";
+    var c = 26, R = 22, n = AXL.length, pt = function (i, rr) { var t = Math.PI * 2 / n * i - Math.PI / 2; return (c + Math.cos(t) * rr).toFixed(1) + "," + (c + Math.sin(t) * rr).toFixed(1); };
+    var ring = function (f) { return AXL.map(function (x, i) { return pt(i, R * f); }).join(" "); };
+    return '<svg class="u-mini" viewBox="0 0 52 52" role="img" aria-label="' + esc(AXL.map(function (x) { return x[1] + " " + a[x[0]]; }).join("，")) + '"><polygon class="g" points="' + ring(1) + '"/><polygon class="g" points="' + ring(.5) + '"/>' +
+      AXL.map(function (x, i) { return '<line class="g" x1="' + c + '" y1="' + c + '" x2="' + pt(i, R).split(",")[0] + '" y2="' + pt(i, R).split(",")[1] + '"/>'; }).join("") +
+      '<polygon class="v" points="' + AXL.map(function (x, i) { return pt(i, R * a[x[0]] / 5); }).join(" ") + '"/></svg>';
+  };
   var fig = function (r) { var u = artOf(r); return '<div class="u-fig">' + (u ? '<i class="u-pic" style="background-image:' + u + '" aria-hidden="true"></i>' : "") + radar(r) + '</div>' + (r.axes_reason ? '<p class="u-alt">' + esc(r.axes_reason) + '</p>' : ""); };
   var st = { tab: "ult", grp: "all" }, entries = [], list = null, openBtn = null, openWrap = null, openKey = "";
   var q = $("#ul-q"), box = $("#ul-list"), cnt = $("#ul-count"), empty = $("#ul-empty"), resetB = $("#ul-reset");
@@ -1721,8 +1735,8 @@ a.row:active, a.step:active { background: var(--panel-2); }
     if (e.k === "ult") {
       var cd = Math.min(100, Math.round(r.cooldown_s / CDMAX * 100));
       var ua = artOf(r);
-      h += '<span class="slot">' + (ua ? '<i class="u-art" style="background-image:' + ua + '" aria-hidden="true"></i>' : ic(ICON[keyOf(r)] || "star", 32)) + '</span><span class="u-t"><span class="u-n"><b class="rname rc-unique">' + esc(r.name_sc) + '</b>' + chipFor(r) + '</span>' +
-        '<span class="u-k"><i class="u-cd" aria-hidden="true"><u style="--v:' + cd + '"></u></i><span>' + r.cooldown_s + ' 秒 · ' + esc(r.teacher.name_sc) + '</span></span></span>';
+      h += '<span class="slot">' + (ua ? '<i class="u-art" style="background-image:' + ua + '" aria-hidden="true"></i>' : ic(ICON[keyOf(r)] || "star", 32)) + '</span><span class="u-t"><span class="u-n"><b class="rname rc-unique">' + esc(r.name_sc) + '</b>' + chipRow(r) + '</span>' +
+        '<span class="u-k"><span>冷卻 ' + r.cooldown_s + ' 秒 · ' + esc(r.teacher.name_sc) + '</span></span></span>' + mini(r);
     } else if (e.k === "pair") {
       var mm = mult(r);
       h += '<span class="slot"><i class="u-em em-' + esc(r.class_key) + '" aria-hidden="true"></i></span><span class="u-t"><span class="u-n"><b>' + esc(r.class_sc) + '</b>' + (mm ? '<span class="chip u-x4">×' + mm[0].toFixed(2) + ' → ×' + mm[1].toFixed(2) + '</span>' : "") + '</span>' +
@@ -1742,7 +1756,7 @@ a.row:active, a.step:active { background: var(--panel-2); }
     if (r.sealed_variant) chips += '<span class="chip">封印版</span>';
     if (r.role_text) chips += '<span class="chip">' + esc(r.role_text.replace(/，.*$/, "")) + '</span>';
     var cdw = Math.min(100, r.cooldown_s / CDMAX * 100), h = head(r.name_sc, "rc-unique") + '<div class="chips">' + chips + '</div>' + fig(r);
-    h += '<div class="u-cdl"><span class="u-cd big" aria-hidden="true"><u style="--v:' + cdw + '"></u>' + (r.cooldown_min_s ? '<i style="--m:' + (r.cooldown_min_s / CDMAX * 100) + '"></i>' : "") + '</span><b>' + esc(r.cooldown_text) + '</b></div>';
+    h += '<p class="tip-l"><span class="k">冷卻</span><span>' + esc(r.cooldown_text) + '</span></p>';
     h += '<p class="u-d">' + esc(r.description) + '</p>';
     if (r.area_mentions && r.area_mentions.length) h += '<p class="u-hd">範圍</p><div class="chips">' + r.area_mentions.map(function (a) { return '<span class="chip">' + esc(a) + '</span>'; }).join("") + '</div>';
     if (r.rules_text) h += '<p class="tip-l"><span class="k">規則</span><span>' + esc(r.rules_text) + '</span></p>';
